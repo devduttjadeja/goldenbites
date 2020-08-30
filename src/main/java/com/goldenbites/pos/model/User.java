@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class User {
 
 	@Id
-	@Field(name = "user_ID")
+	@Field(name = "user_id")
 	private String userId;
 
 	@Field(name = "user_name")
