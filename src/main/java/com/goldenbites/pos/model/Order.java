@@ -1,45 +1,120 @@
 package com.goldenbites.pos.model;
 
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document(collection = "orders")
+@Document(collection = "order")
 public class Order {
+	
 	@Id
-	private String id;
+	@Field(name = "order_id")
+	private String orderId;
 
-	private String date;
-	private Integer total;
+	@Field(name = "order_summaryid")
+	private String orderSummaryId;
 
-	public Order() {
+	@Field(name = "order_date")
+	private Date orderDate;
+	
+	@Field(name = "order_paymenttype")
+	private String orderPaymentType;
 
+	@Field(name = "order_total")
+	private Double orderTotal;
+	
+	@Field(name = "order_tax1")
+	private Double orderTax1;
+	
+	@Field(name = "order_tax2")
+	private Double orderTax2;
+	
+	@Field(name = "order_taxtotal")
+	private Double orderTaxTotal;
+	
+	@Field(name = "order_finaltotal")
+	private Double orderFinalTotal;
+
+	public String getOrderId() {
+		return orderId;
 	}
 
-	public Order(String date, Integer total) {
-		this.date = date;
-		this.total = total;
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
 	}
 
-	public String getDate() {
-		return date;
+	public String getOrderSummaryId() {
+		return orderSummaryId;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setOrderSummaryId(String orderSummaryId) {
+		this.orderSummaryId = orderSummaryId;
 	}
 
-	public Integer getTotal() {
-		return total;
+	public Date getOrderDate() {
+		return orderDate;
 	}
 
-	public void setTotal(Integer total) {
-		this.total = total;
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	public String getOrderPaymentType() {
+		return orderPaymentType;
+	}
+
+	public void setOrderPaymentType(String orderPaymentType) {
+		this.orderPaymentType = orderPaymentType;
+	}
+
+	public Double getOrderTotal() {
+		return orderTotal;
+	}
+
+	public void setOrderTotal(Double orderTotal) {
+		this.orderTotal = orderTotal;
+	}
+
+	public Double getOrderTax1() {
+		return orderTax1;
+	}
+
+	public void setOrderTax1(Double orderTax1) {
+		this.orderTax1 = orderTax1;
+	}
+
+	public Double getOrderTax2() {
+		return orderTax2;
+	}
+
+	public void setOrderTax2(Double orderTax2) {
+		this.orderTax2 = orderTax2;
+	}
+
+	public Double getOrderTaxTotal() {
+		return orderTaxTotal;
+	}
+
+	public void setOrderTaxTotal(Double orderTaxTotal) {
+		this.orderTaxTotal = orderTaxTotal;
+	}
+
+	public Double getOrderFinalTotal() {
+		return orderFinalTotal;
+	}
+
+	public void setOrderFinalTotal(Double orderFinalTotal) {
+		this.orderFinalTotal = orderFinalTotal;
 	}
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", date=" + date + ", total=" + total + "]";
+		return "Order [orderId=" + orderId + ", orderSummaryId=" + orderSummaryId + ", orderDate=" + orderDate
+				+ ", orderPaymentType=" + orderPaymentType + ", orderTotal=" + orderTotal + ", orderTax1=" + orderTax1
+				+ ", orderTax2=" + orderTax2 + ", orderTaxTotal=" + orderTaxTotal + ", orderFinalTotal="
+				+ orderFinalTotal + "]";
 	}
 
-	
 }
