@@ -25,7 +25,7 @@ public class UserController {
 	@PostMapping("/login")
 	public String greetingSubmit(@ModelAttribute User user, Model model) {
 		
-		User userNew = userRepository.findByUserNameAndUserPassword(user.getUserName(), user.getUserPassword());
+		User userNew = userRepository.findByUserNameAndUserPasswordAndUserRole(user.getUserName(), user.getUserPassword(), user.getUserRole());
 		
 		if(userNew !=  null) {
 			return "home";
