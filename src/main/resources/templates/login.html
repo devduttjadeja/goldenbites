@@ -36,11 +36,13 @@
             </div>
 			<div>
 				<div class="form-label-group">
-					<select class="form-control text-primary" required>
-						<option disabled selected>Please select role</option>
-						<option>Admin</option>
-						<option>User</option>
-						<option>Customer</option>
+				
+					<select class="form-control text-primary"required th:field="*{userRole}">
+						<option th:value="default" >Please select a role</option>
+						
+						<option th:value="admin">Admin</option>
+						<option th:value="user">User</option>
+						<option th:value="customer">Customer</option>
 					</select>
 				</div>
 			</div>
