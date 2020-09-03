@@ -23,16 +23,19 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public String greetingSubmit(@ModelAttribute User user) {
+	public String greetingSubmit(@ModelAttribute User user, Model model) {
 		
-		User userNew = userRepository.findByuserName(user.getUserName());
-
+		User userNew = userRepository.findByUserNameAndUserPassword(user.getUserName(), user.getUserPassword());
 		
-		if(userNew !=  null && userNew.getUserPassword().equals(user.getUserPassword()))
-			return "index";
-		else
+		if(userNew !=  null) {
+			return "home";
+		}
+		else {
+			model.addAttribute("errorMessage", "Invalid Username or Password");
 			return "login";
+		}
+			
 			
 	}
-
+	
 }

@@ -52,8 +52,14 @@
                 </label>
               </div>
             </div>
-            <a class="btn btn-primary btn-block"><input type="submit" value="Submit" /></a>
-            <a class="btn btn-primary btn-block" th:action="@{/login}">Login</a>
+          	
+          	
+          	
+          	<p th:text="${errorMessage}"></p>
+          	
+          	
+            <button class="btn btn-primary btn-block" type = "submit" value = "login">login</button>
+            
           </form>
           <div class="text-center">
             <br>

@@ -6,6 +6,6 @@ import com.goldenbites.pos.model.User;
 
 public interface UserRepository extends MongoRepository<User, String> {
 
-	User findByuserName(String userName);
-
+	public User findByUserNameAndUserPassword(String userName, String userPassword);
+	
 }
