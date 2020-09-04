@@ -1,0 +1,86 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menu Page</title>
+</head>
+<body>
+	<center>
+		<h1>Menu Page</h1>
+	</center>
+	<form>
+		<div th:if="${not #lists.isEmpty(items)}">
+			<table>
+				<tbody>
+					<tr>
+						<th>Item Name</th>
+						<th>Item Category</th>
+						<th>Item Price</th>
+						<th>Item Tax1</th>
+						<th>Item Tax2</th>
+						<th>Item TaxTotal</th>
+						<th>Item CreatedDate</th>
+						<th>Item UpdatedDate</th>
+					</tr>
+					<tr th:each="item : ${items}">
+						<td th:text="${item.itemName}"></td>
+						<td th:text="${item.itemCategory}"></td>
+						<td th:text="${item.itemPrice}"></td>
+						<td th:text="${item.itemTax1}"></td>
+						<td th:text="${item.itemTax2}"></td>
+						<td th:text="${item.itemTax1 + item.itemTax2}"></td>
+						<td th:text="${item.itemCreatedDate}"></td>
+						<td th:text="${item.itemUpdatedDate}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</form>
+</body>
+</html>
+ -->
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<center>
+		<h1>View Menu</h1>
+	</center>
+<div class = "container" th:if="${not #lists.isEmpty(items)}">
+			<table class = "table">
+				<tbody>
+					<tr class = "success">
+						<th>Item Name</th>
+						<th>Item Category</th>
+						<th>Item Price</th>
+						<th>Item Tax1</th>
+						<th>Item Tax2</th>
+						<th>Item TaxTotal</th>
+						<th>Item CreatedDate</th>
+						<th>Item UpdatedDate</th>
+					</tr>
+					<tr class = "info" th:each="item : ${items}">
+						<td th:text="${item.itemName}"></td>
+						<td th:text="${item.itemCategory}"></td>
+						<td th:text="${item.itemPrice}"></td>
+						<td th:text="${item.itemTax1}"></td>
+						<td th:text="${item.itemTax2}"></td>
+						<td th:text="${item.itemTax1 + item.itemTax2}"></td>
+						<td th:text="${item.itemCreatedDate}"></td>
+						<td th:text="${item.itemUpdatedDate}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+</body>
+</html>
+
+ 
