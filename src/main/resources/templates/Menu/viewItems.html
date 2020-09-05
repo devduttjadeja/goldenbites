@@ -65,6 +65,7 @@
 						<th>Item TaxTotal</th>
 						<th>Item CreatedDate</th>
 						<th>Item UpdatedDate</th>
+						<th>Delete</th>
 					</tr>
 					<tr class = "info" th:each="item : ${items}">
 						<td th:text="${item.itemName}"></td>
@@ -75,6 +76,7 @@
 						<td th:text="${item.itemTax1 + item.itemTax2}"></td>
 						<td th:text="${item.itemCreatedDate}"></td>
 						<td th:text="${item.itemUpdatedDate}"></td>
+						<td><a th:href="@{/delete/{id}(id=${item.itemId})}">Delete</a></td>
 					</tr>
 				</tbody>
 			</table>
