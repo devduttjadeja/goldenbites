@@ -8,12 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.goldenbites.pos.dao.ItemRepository;
 import com.goldenbites.pos.model.Item;
-import com.goldenbites.pos.model.User;
 
 @Controller
 public class MenuController {
@@ -48,5 +47,13 @@ public class MenuController {
 		itemRepository.save(item);
 		model.addAttribute("item", new Item());
 		return "Menu/additem";
+	}
+	
+	@GetMapping("/delete/{id}")
+	public String deleteItem(@PathVariable ("id") String id, Model model) {
+	    
+		itemRepository.deleteById(id);
+	    model.addAttribute("items", itemRepository.findAll());
+	    return "Menu/viewItems";
 	}
 }

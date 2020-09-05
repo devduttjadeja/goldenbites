@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Item {
 
 	@Id
-	@Field(name = "item_id")
 	private String itemId;
 
 	@Field(name = "item_name")
