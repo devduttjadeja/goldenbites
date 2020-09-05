@@ -20,25 +20,26 @@ public class MenuController {
 	@Autowired
 	ItemRepository itemRepository;
 
-	@GetMapping("/viewitems")
+	@GetMapping("/viewItems")
 	public String viewItems(Model model) {
 		model.addAttribute("items", itemRepository.findAll());
 		return "Menu/viewItems";
 	}
 
-	@GetMapping("/menuhome")
+	@GetMapping("/menuHome")
 	public String viewMenu(Model model) {
 		// model.addAttribute("items", itemRepository.findAll());
-		return "Menu/menuhome";
+		return "Menu/menuHome";
 	}
 
-	@GetMapping("/additem")
+	@GetMapping("/addItem")
 	public String displayItemForm(Model model) {
 		//model.addAttribute("items", item);
 		model.addAttribute("item", new Item());
-		return "Menu/additem";
+		return "Menu/addItem";
 	}
-	@PostMapping("/additem")
+	
+	@PostMapping("/addItem")
 	public String saveItem(@ModelAttribute Item item, Model model) {
 		//model.addAttribute("items", item);
 		Calendar calendar = Calendar.getInstance();
@@ -46,7 +47,7 @@ public class MenuController {
 	    item.setItemCreatedDate(now);
 		itemRepository.save(item);
 		model.addAttribute("item", new Item());
-		return "Menu/additem";
+		return "Menu/addItem";
 	}
 	
 	@GetMapping("/delete/{id}")
