@@ -41,14 +41,6 @@ public class Order {
 		this.orderId = orderId;
 	}
 
-	public String getOrderSummaryId() {
-		return orderSummaryId;
-	}
-
-	public void setOrderSummaryId(String orderSummaryId) {
-		this.orderSummaryId = orderSummaryId;
-	}
-
 	public Date getOrderDate() {
 		return orderDate;
 	}
@@ -107,7 +99,7 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", orderSummaryId=" + orderSummaryId + ", orderDate=" + orderDate
+		return "Order [orderId=" + orderId + ", orderDate=" + orderDate
 				+ ", orderPaymentType=" + orderPaymentType + ", orderTotal=" + orderTotal + ", orderTax1=" + orderTax1
 				+ ", orderTax2=" + orderTax2 + ", orderTaxTotal=" + orderTaxTotal + ", orderFinalTotal="
 				+ orderFinalTotal + "]";

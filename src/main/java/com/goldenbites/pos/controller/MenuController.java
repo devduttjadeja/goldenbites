@@ -2,9 +2,6 @@ package com.goldenbites.pos.controller;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Optional;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -70,14 +67,10 @@ public class MenuController {
 	    return "Menu/updateItem";
 	}
 	
+	
 	@PostMapping("/updateItem/{id}")
 	public String updateItem(@PathVariable("id") String id, @ModelAttribute Item item, 
-	  BindingResult result, Model model) {
-	    if (result.hasErrors()) {
-	        item.setItemId(id);
-	        return "Menu/updateItem";
-	    }
-	     
+	  BindingResult result, Model model) {     
 	    item.setItemId(id);
 	    Calendar calendar = Calendar.getInstance();
 		Date now = calendar.getTime();
