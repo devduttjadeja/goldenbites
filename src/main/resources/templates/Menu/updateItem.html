@@ -15,7 +15,7 @@
 
 <body id="page-top">
 
-	<form th:action="@{/addItem}" th:object="${item}" method="post">
+	<form th:action="@{/updateItem/{id}(id=${item.itemId})}" th:object="${item}" method="post">
 		<!-- Add Product Modal-->
 
 		<div class="modal-dialog modal-lg" role="document">
@@ -67,7 +67,7 @@
 
 						<div class="modal-footer">
 							<a href="/menuHome" class="btn btn-secondary" type="button">Back</a>
-							<input type="submit" class="btn btn-primary" value="Add Product">
+							<input type="submit" class="btn btn-primary" value="Update Product">
 						</div>
 				</form>
 			</div>

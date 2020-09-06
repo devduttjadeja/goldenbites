@@ -25,9 +25,7 @@
 					<th>Item Tax1</th>
 					<th>Item Tax2</th>
 					<th>Item TaxTotal</th>
-					<th>Create/Update</th>
-					<th>Edit</th>
-					<th>Delete</th>
+					<th>Quantity</th>
 				</tr>
 				<tr class="info" th:each="item : ${items}">
 					<td th:text="${item.itemName}"></td>
@@ -36,14 +34,21 @@
 					<td th:text="${item.itemTax1}"></td>
 					<td th:text="${item.itemTax2}"></td>
 					<td th:text="${item.itemTax1 + item.itemTax2}"></td>
-					<td th:text="${item.itemCreateOrUpdateDate}"></td>
-					<td><a th:href="@{/edit/{id}(id=${item.itemId})}">Edit</a></td>
-					<td><a th:href="@{/delete/{id}(id=${item.itemId})}">Delete</a></td>
+					<td><select class="form-control text-primary" required
+								th:field="*{userRole}">
+								<option th:value="default">Please select a role</option>
+								<option th:value="admin">Admin</option>
+								<option th:value="user">User</option>
+								<option th:value="customer">Customer</option>
+							</select></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 
+
+	<a>Item 1</a>
+	<a href="/ordersummary">Place the Order</a>
 </body>
 </html>
 
