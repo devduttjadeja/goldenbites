@@ -10,11 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Order {
 	
 	@Id
-	@Field(name = "order_id")
 	private String orderId;
-
-	@Field(name = "order_summaryid")
-	private String orderSummaryId;
 
 	@Field(name = "order_date")
 	private Date orderDate;
