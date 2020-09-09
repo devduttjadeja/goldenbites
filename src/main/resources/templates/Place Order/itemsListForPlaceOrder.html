@@ -1,54 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>Bootstrap Example</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
-<body>
-	<center>
-		<h1>View Menu</h1>
-	</center>
-	<div class="container" th:if="${not #lists.isEmpty(items)}">
-		<table class="table">
-			<tbody>
-				<tr class="success">
-					<th>Item Name</th>
-					<th>Item Category</th>
-					<th>Item Price</th>
-					<th>Item Tax1</th>
-					<th>Item Tax2</th>
-					<th>Item TaxTotal</th>
-					<th>Quantity</th>
+<form action="#" th:action="@{/itemsListForPlaceOrder/add}" th:object="${orderCreation}"
+  method="post">
+    <fieldset>
+        <input type="submit" id="submitButton" th:value="Save">
+        <input type="reset" id="resetButton" name="reset" th:value="Reset"/>
+        <table>
+            <thead>
+                <tr>
+                    <th> Items</th>
+                    <th> Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="orderSummary, itemStat : *{orderSummaryList}">
+                    <!-- <td><input th:field="*{orderSummaryList[__${itemStat.index}__].itemId}" /></td>
+                    <td><input th:field="*{orderSummaryList[__${itemStat.index}__].itemQuantity}" /></td> -->
+					<td><select name="week_scroll" th:field="*{orderSummaryList[__${itemStat.index}__].itemId}">
+					<option th:value="default">Please select</option>
+						<option th:each="item : ${items}" th:value="${item.itemId}"
+							th:text="${item.itemName}" />
+					</select></td>
+					<td><select name="week_scroll" th:field="*{orderSummaryList[__${itemStat.index}__].itemQuantity}">
+					<option th:value="default">Please select</option>
+						<option th:each="n : ${#numbers.sequence(0,10)}" th:value="${n}"
+							th:text="${n}" />
+					</select></td>
 				</tr>
-				<tr class="info" th:each="item : ${items}">
-					<td th:text="${item.itemName}"></td>
-					<td th:text="${item.itemCategory}"></td>
-					<td th:text="${item.itemPrice}"></td>
-					<td th:text="${item.itemTax1}"></td>
-					<td th:text="${item.itemTax2}"></td>
-					<td th:text="${item.itemTax1 + item.itemTax2}"></td>
-					<td><select class="form-control text-primary" required
-								th:field="*{userRole}">
-								<option th:value="default">Please select a role</option>
-								<option th:value="admin">Admin</option>
-								<option th:value="user">User</option>
-								<option th:value="customer">Customer</option>
-							</select></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-
-
-	<a>Item 1</a>
-	<a href="/ordersummary">Place the Order</a>
-</body>
-</html>
-
+            </tbody>
+        </table>
+    </fieldset>
+</form>

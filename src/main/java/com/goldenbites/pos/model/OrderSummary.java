@@ -17,13 +17,57 @@ public class OrderSummary {
 	private String orderId;
 
 	@Field(name = "item_id")
-	private Date itemId;
+	private String itemId;
+	
+	@Field(name = "item_name")
+	private String itemName;
 
 	@Field(name = "item_price")
 	private Double itemPrice;
 	
 	@Field(name = "item_quantity")
 	private Double itemQuantity;
+	
+	@Field(name = "item_totalprice")
+	private Double itemTotalPrice;
+	
+	@Field(name = "item_totaltax1")
+	private Double itemTotalTax1;
+	
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+	@Field(name = "item_totaltax2")
+	private Double itemTotalTax2;
+	
+	public Double getItemTotalPrice() {
+		return itemTotalPrice;
+	}
+
+	public void setItemTotalPrice(Double itemTotalPrice) {
+		this.itemTotalPrice = itemTotalPrice;
+	}
+
+	public Double getItemTotalTax1() {
+		return itemTotalTax1;
+	}
+
+	public void setItemTotalTax1(Double itemTotalTax1) {
+		this.itemTotalTax1 = itemTotalTax1;
+	}
+
+	public Double getItemTotalTax2() {
+		return itemTotalTax2;
+	}
+
+	public void setItemTotalTax2(Double itemTotalTax2) {
+		this.itemTotalTax2 = itemTotalTax2;
+	}
 
 	public String getOrderSummaryId() {
 		return orderSummaryId;
@@ -41,11 +85,11 @@ public class OrderSummary {
 		this.orderId = orderId;
 	}
 
-	public Date getItemId() {
+	public String getItemId() {
 		return itemId;
 	}
 
-	public void setItemId(Date itemId) {
+	public void setItemId(String itemId) {
 		this.itemId = itemId;
 	}
 
@@ -64,11 +108,6 @@ public class OrderSummary {
 	public void setItemQuantity(Double itemQuantity) {
 		this.itemQuantity = itemQuantity;
 	}
-
-	@Override
-	public String toString() {
-		return "OrderSummary [orderSummaryId=" + orderSummaryId + ", orderId=" + orderId + ", itemId=" + itemId
-				+ ", itemPrice=" + itemPrice + ", itemQuantity=" + itemQuantity + "]";
-	}
+	
 	
 }

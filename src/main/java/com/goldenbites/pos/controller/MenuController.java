@@ -61,7 +61,7 @@ public class MenuController {
 	
 	@GetMapping("/edit/{id}")
 	public String showUpdateForm(@PathVariable("id") String id, Model model) {
-	    Item item = itemRepository.findById(id).get();
+	    Item item = itemRepository.findByItemId(id);
 
 	    model.addAttribute("item", item);
 	    return "Menu/updateItem";
