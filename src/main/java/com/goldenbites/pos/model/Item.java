@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Item {
 
 	@Id
-	@Field(name = "item_id")
 	private String itemId;
 
 	@Field(name = "item_name")
@@ -32,12 +31,9 @@ public class Item {
 	@Field(name = "item_taxtotal")
 	private Double itemTaxTotal;
 	
-	@Field(name = "item_createddate")
-	private Date itemCreatedDate;
+	@Field(name = "item_createorupdatedate")
+	private Date itemCreateOrUpdateDate;
 	
-	@Field(name = "item_updateddate")
-	private Date itemUpdatedDate;
-
 	public String getItemId() {
 		return itemId;
 	}
@@ -78,6 +74,14 @@ public class Item {
 		this.itemTax1 = itemTax1;
 	}
 
+	public Date getItemCreateOrUpdateDate() {
+		return itemCreateOrUpdateDate;
+	}
+
+	public void setItemCreateOrUpdateDate(Date itemCreateOrUpdateDate) {
+		this.itemCreateOrUpdateDate = itemCreateOrUpdateDate;
+	}
+
 	public Double getItemTax2() {
 		return itemTax2;
 	}
@@ -94,20 +98,6 @@ public class Item {
 		this.itemTaxTotal = itemTaxTotal;
 	}
 
-	public Date getItemCreatedDate() {
-		return itemCreatedDate;
-	}
-
-	public void setItemCreatedDate(Date itemCreatedDate) {
-		this.itemCreatedDate = itemCreatedDate;
-	}
-
-	public Date getItemUpdatedDate() {
-		return itemUpdatedDate;
-	}
-
-	public void setItemUpdatedDate(Date itemUpdatedDate) {
-		this.itemUpdatedDate = itemUpdatedDate;
-	}
+	
 
 }

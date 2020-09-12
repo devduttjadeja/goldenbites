@@ -10,11 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Order {
 	
 	@Id
-	@Field(name = "order_id")
 	private String orderId;
-
-	@Field(name = "order_summaryid")
-	private String orderSummaryId;
 
 	@Field(name = "order_date")
 	private Date orderDate;
@@ -43,14 +39,6 @@ public class Order {
 
 	public void setOrderId(String orderId) {
 		this.orderId = orderId;
-	}
-
-	public String getOrderSummaryId() {
-		return orderSummaryId;
-	}
-
-	public void setOrderSummaryId(String orderSummaryId) {
-		this.orderSummaryId = orderSummaryId;
 	}
 
 	public Date getOrderDate() {
@@ -111,7 +99,7 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", orderSummaryId=" + orderSummaryId + ", orderDate=" + orderDate
+		return "Order [orderId=" + orderId + ", orderDate=" + orderDate
 				+ ", orderPaymentType=" + orderPaymentType + ", orderTotal=" + orderTotal + ", orderTax1=" + orderTax1
 				+ ", orderTax2=" + orderTax2 + ", orderTaxTotal=" + orderTaxTotal + ", orderFinalTotal="
 				+ orderFinalTotal + "]";
