@@ -1,70 +1,77 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>Update User</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Home Page</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
 </head>
 <body>
 	<center>
-		<h1>Home page</h1>
+		<h3>Order Summary</h3>
 	</center>
-	<form>
-		<div class="container">
-			<p>order summary</p>
-			<a href = "/customerselection">Customer Selection</a>
-			
-		</div>
-	</form>
-</body>
-</html> -->
 
+	<div class="card-body" th:if="${not #lists.isEmpty(orderSummaryList)}">
+		<div class="table-responsive">
+			<table class="table table-bordered" id="dataTable" width="100%"
+				cellspacing="0">
+				<thead>
+					<tr>
+						<th>Item Name</th>
+						<th>Item Quantity</th>
 
- <!DOCTYPE html>
- <html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Update User</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-</head>
-  <body>
-    
-	<center>
-		<h3>View Menu</h3>
-	</center>
-              <div class="card-body" th:if="${not #lists.isEmpty(orderSummaryList)}">
-                <div class="table-responsive">
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  
-                    <thead>
-                      <tr>
-                       	<th>Item Name</th>
-                       	<th>Item Quantity</th>
 						<th>Item Total Tax1</th>
 						<th>Item Total Tax2</th>
 						<th>Item Total Price</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class = "info" th:each="orderSummary : ${orderSummaryList}">
+						<!-- <th>Edit</th> -->
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="info" th:each="orderSummary : ${orderSummaryList}">
 						<td th:text="${orderSummary.itemName}"></td>
 						<td th:text="${orderSummary.itemQuantity}"></td>
 						<td th:text="${orderSummary.itemTotalTax1}"></td>
 						<td th:text="${orderSummary.itemTotalTax2}"></td>
 						<td th:text="${orderSummary.itemTotalPrice}"></td>
+						<!-- <td><a th:href="@{/itemListForPlaceOrder/edit/{id}(id=${orderSummary.orderSummaryId})}">Edit</a></td> -->
+						<td><a
+							th:href="@{/orderSummary/delete/{id}(id=${orderSummary.orderSummaryId})}">Delete</a></td>
 					</tr>
-                    </tbody>
-                    
-                  </table>
-                  
-                  <p th:text="${order.orderTaxTotal}"></p>
-                  <p th:text="${order.orderTotal}"></p>
-                  <p th:text="${order.orderFinalTotal}"></p>
-                </div>
-              </div>
 
-    </body>
-  </html>
- 
+				</tbody>
+			</table>
+			<div>
+				Total Tax :
+				<p th:text="${order.orderTaxTotal}"></p>
+				Total (Tax exclusive) :
+				<p th:text="${order.orderTotal}"></p>
+				Final Total (Tax inclusive) :
+				<p th:text="${order.orderFinalTotal}"></p>
+			</div>
+
+			<a href="/customerSelection">Customer Selection</a> <a
+				href="/orderSummary"> Back </a>
+
+		</div>
+	</div>
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/jquery.easing.min.js"></script>
+	<script src="js/jquery.dataTables.js"></script>
+	<script src="js/dataTables.bootstrap4.js"></script>
+	<script src="js/datatables-demo.js"></script>
+	<script src="js/rc-pos.min.js"></script>
+</body>
+</html>
+
+

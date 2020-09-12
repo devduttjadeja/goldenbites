@@ -10,4 +10,6 @@ public interface OrderSummaryRepository extends MongoRepository<OrderSummary, St
 
 	ArrayList<OrderSummary> findAllByOrderId(String orderId);
 
+	OrderSummary findByOrderSummaryId(String id);
+
 }

@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -23,20 +23,20 @@
             </thead>
             <tbody>
                 <tr th:each="orderSummary, itemStat : *{orderSummaryList}">
-                    <!-- <td><input th:field="*{orderSummaryList[__${itemStat.index}__].itemId}" /></td>
-                    <td><input th:field="*{orderSummaryList[__${itemStat.index}__].itemQuantity}" /></td> -->
-					<td><select name="week_scroll" th:field="*{orderSummaryList[__${itemStat.index}__].itemId}">
-					<option th:value="default">Please select</option>
-						<option th:each="item : ${items}" th:value="${item.itemId}"
-							th:text="${item.itemName}" />
+					<td><select name="week_scroll"
+						th:field="*{orderSummaryList[__${itemStat.index}__].itemId}">
+							<option th:value="default">Please select</option>
+							<option th:each="item : ${items}" th:value="${item.itemId}"
+								th:text="${item.itemName}" />
 					</select></td>
-					<td><select name="week_scroll" th:field="*{orderSummaryList[__${itemStat.index}__].itemQuantity}">
-					<option th:value="default">Please select</option>
-						<option th:each="n : ${#numbers.sequence(0,10)}" th:value="${n}"
-							th:text="${n}" />
+					<td><select name="week_scroll"
+						th:field="*{orderSummaryList[__${itemStat.index}__].itemQuantity}">
+							<option th:value="0">Please select</option>
+							<option th:each="n : ${#numbers.sequence(0,10)}" th:value="${n}"
+								th:text="${n}" />
 					</select></td>
 				</tr>
-            </tbody>
-        </table>
-    </fieldset>
+			</tbody>
+		</table>
+	</fieldset>
 </form>
