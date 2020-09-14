@@ -31,7 +31,7 @@
 						<th>Item Total Tax1</th>
 						<th>Item Total Tax2</th>
 						<th>Item Total Price</th>
-						<!-- <th>Edit</th> -->
+						<th>Edit</th>
 						<th>Delete</th>
 					</tr>
 				</thead>
@@ -42,7 +42,8 @@
 						<td th:text="${orderSummary.itemTotalTax1}"></td>
 						<td th:text="${orderSummary.itemTotalTax2}"></td>
 						<td th:text="${orderSummary.itemTotalPrice}"></td>
-						<!-- <td><a th:href="@{/itemListForPlaceOrder/edit/{id}(id=${orderSummary.orderSummaryId})}">Edit</a></td> -->
+						<td><a
+							th:href="@{/orderSummary/edit/{id}(id=${orderSummary.orderSummaryId})}">Edit</a></td>
 						<td><a
 							th:href="@{/orderSummary/delete/{id}(id=${orderSummary.orderSummaryId})}">Delete</a></td>
 					</tr>

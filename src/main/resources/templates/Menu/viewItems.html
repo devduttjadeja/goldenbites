@@ -1,41 +1,44 @@
- <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>RC-POS - Product Brands</title>
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
-    <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
-	
-  </head>
-  <body id="page-top">
-    
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>RC-POS - Product Brands</title>
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+<link href="css/dataTables.bootstrap4.css" rel="stylesheet">
+<link href="css/styles.css" rel="stylesheet">
+
+</head>
+<body id="page-top">
+
 	<center>
 		<h3>View Menu</h3>
 	</center>
-              <div class="card-body" th:if="${not #lists.isEmpty(items)}">
-                <div class="table-responsive">
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                      <tr>
-                       	<th>Item Name</th>
+	<div class="card-body" th:if="${not #lists.isEmpty(items)}">
+		<div class="table-responsive">
+			<table class="table table-bordered" id="dataTable" width="100%"
+				cellspacing="0">
+				<thead>
+					<tr>
+						<th>Item Name</th>
 						<th>Item Category</th>
 						<th>Item Price</th>
 						<th>Item Tax1</th>
 						<th>Item Tax2</th>
 						<th>Item TaxTotal</th>
 						<th>Create/Update</th>
-					    <th>Edit</th>
-					    <th>Delete</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class = "info" th:each="item : ${items}">
+						<th>Edit</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="info" th:each="item : ${items}">
 						<td th:text="${item.itemName}"></td>
 						<td th:text="${item.itemCategory}"></td>
 						<td th:text="${item.itemPrice}"></td>
@@ -43,21 +46,20 @@
 						<td th:text="${item.itemTax2}"></td>
 						<td th:text="${item.itemTax1 + item.itemTax2}"></td>
 						<td th:text="${item.itemCreateOrUpdateDate}"></td>
-					<td><a th:href="@{/edit/{id}(id=${item.itemId})}">Edit</a></td>
-					<td><a th:href="@{/delete/{id}(id=${item.itemId})}">Delete</a></td>
+						<td><a th:href="@{/edit/{id}(id=${item.itemId})}">Edit</a></td>
+						<td><a th:href="@{/delete/{id}(id=${item.itemId})}">Delete</a></td>
 					</tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-     
-      <script src="js/jquery.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
-      <script src="js/jquery.easing.min.js"></script>
-      <script src="js/jquery.dataTables.js"></script>
-      <script src="js/dataTables.bootstrap4.js"></script>
-      <script src="js/datatables-demo.js"></script>
-      <script src="js/rc-pos.min.js"></script>
-    </body>
-  </html>
- 
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/jquery.easing.min.js"></script>
+	<script src="js/jquery.dataTables.js"></script>
+	<script src="js/dataTables.bootstrap4.js"></script>
+	<script src="js/datatables-demo.js"></script>
+	<script src="js/rc-pos.min.js"></script>
+</body>
+</html>

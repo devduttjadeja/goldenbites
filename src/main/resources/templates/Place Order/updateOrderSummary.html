@@ -18,50 +18,36 @@
 </head>
 
 <body>
-	<form th:action="@{/registerCustomer}" th:object="${customer}"
-		method="post">
+	<form th:action="@{/orderSummary/update/{id}(id=${orderSummary.orderSummaryId})}"
+		th:object="${orderSummary}" method="post">
 		<!-- Add Product Modal-->
 
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header bg-primary text-white">
 					<h5 class="modal-title" id="exampleModalLabel">
-						<i class="fa fa-tag"></i> Customer Registration
+						<i class="fa fa-tag"></i> Update Item
 					</h5>
 				</div>
 				<form class="">
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="">Customer Name</label> <input type="text"
+							<label for="">Item Name</label> <input type="text"
 								class="form-control" name="" value=""
-								placeholder="Enter Customer Name" th:field="*{customerName}"
-								required>
+								placeholder="Enter Item Name" th:field="*{itemName}" required>
 						</div>
-						<div class="form-group">
-							<label>Customer Email</label> <input type="text"
-								class="form-control" name="" value=""
-								placeholder="Enter Customer Email" th:field="*{customerEmail}"
-								required>
-
-						</div>
-						<div class="form-group">
-							<label for="">Customer Phone</label> <input type="text"
-								class="form-control" name="" value=""
-								placeholder="Enter Customer Phone" th:field="*{customerPhone}"
-								required>
-						</div>
+						
 
 						<div class="form-group">
-							<label for="">Customer Code</label> <input type="text"
+							<label for="">Item Quantity</label> <input type="text"
 								class="form-control" name="" value=""
-								placeholder="Enter Customer Code" th:field="*{customerCode}"
-								required>
+								placeholder="Enter Item Tax1" th:field="*{itemQuantity}" required>
 						</div>
-
 
 						<div class="modal-footer">
-							<a href="/menuHome" class="btn btn-secondary" type="button">Back</a>
-							<input type="submit" class="btn btn-primary" value="Register">
+							<!-- <a href="/menuHome" class="btn btn-secondary" type="button">Back</a> -->
+							<input type="submit" class="btn btn-primary"
+								value="Update Order Summary">
 						</div>
 				</form>
 			</div>

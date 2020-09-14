@@ -7,6 +7,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -128,26 +129,85 @@ public class PlaceOrderController {
 
 		OrderSummary orderSummary = orderSummaryRepository.findByOrderSummaryId(id);
 		String orderId = orderSummary.getOrderId();
-		
+
 		Order order = orderRepository.findByOrderId(orderId);
-		
+
 		Calendar calendar = Calendar.getInstance();
 		Date now = calendar.getTime();
 		order.setOrderDate(now);
 		order.setOrderTax1(order.getOrderTax1() - orderSummary.getItemTotalTax1());
 		order.setOrderTax2(order.getOrderTax2() - orderSummary.getItemTotalTax2());
-		order.setOrderTaxTotal(order.getOrderTaxTotal() - (orderSummary.getItemTotalTax1() + orderSummary.getItemTotalTax2()));
+		order.setOrderTaxTotal(
+				order.getOrderTaxTotal() - (orderSummary.getItemTotalTax1() + orderSummary.getItemTotalTax2()));
 		order.setOrderTotal(order.getOrderTotal() - orderSummary.getItemTotalPrice());
-		order.setOrderFinalTotal(order.getOrderFinalTotal() - (orderSummary.getItemTotalTax1() + orderSummary.getItemTotalTax2() + orderSummary.getItemTotalPrice()));
-		
-		
+		order.setOrderFinalTotal(order.getOrderFinalTotal() - (orderSummary.getItemTotalTax1()
+				+ orderSummary.getItemTotalTax2() + orderSummary.getItemTotalPrice()));
+
 		orderSummaryRepository.deleteById(id);
 
+		ArrayList<OrderSummary> orderSummaryList = orderSummaryRepository.findAllByOrderId(orderId);
+
+		model.addAttribute("orderSummaryList", orderSummaryList);
+		model.addAttribute("order", order);
+
+		return "Place Order/orderSummary";
+	}
+
+	@GetMapping("/orderSummary/edit/{id}")
+	public String showUpdateOrderForm(@PathVariable("id") String id, Model model) {
+		OrderSummary orderSummary = orderSummaryRepository.findByOrderSummaryId(id);
+		model.addAttribute("orderSummary", orderSummary);
+		return "Place Order/updateOrderSummary";
+	}
+
+	@PostMapping("/orderSummary/update/{id}")
+	public String updateOrder(@PathVariable("id") String id, @ModelAttribute OrderSummary orderSummary,
+			BindingResult result, Model model) {
+
+		OrderSummary orderSummaryOld = orderSummaryRepository.findByOrderSummaryId(id);
+
+		String orderId = orderSummaryOld.getOrderId();
+
+		Order order = orderRepository.findByOrderId(orderId);
+		orderSummary.setOrderSummaryId(id);
+		orderSummary.setOrderId(orderId);
+
+		double orderTotal = 0, orderTax1 = 0, orderTax2 = 0, orderTaxTotal = 0, orderFinalTotal = 0;
+
+		double itemTotalPrice = 0, itemTotalTax1 = 0, itemTotalTax2 = 0;
+
+		Item item = itemRepository.findByItemName(orderSummary.getItemName());
+
+		orderSummary.setItemId(item.getItemId());
+		//orderSummary.setItemName(item.getItemName());
+
+		itemTotalPrice = item.getItemPrice() * orderSummary.getItemQuantity();
+		orderSummary.setItemTotalPrice(itemTotalPrice);
+
+		itemTotalTax1 = item.getItemTax1() * orderSummary.getItemQuantity();
+		orderSummary.setItemTotalTax1(itemTotalTax1);
+
+		itemTotalTax2 = item.getItemTax2() * orderSummary.getItemQuantity();
+		orderSummary.setItemTotalTax2(itemTotalTax2);
 		
+		Calendar calendar = Calendar.getInstance();
+		Date now = calendar.getTime();
+		
+		order.setOrderDate(now);
+		order.setOrderTax1(order.getOrderTax1() - orderSummaryOld.getItemTotalTax1() + itemTotalTax1);
+		order.setOrderTax2(order.getOrderTax2() - orderSummaryOld.getItemTotalTax2() + itemTotalTax2);
+		order.setOrderTaxTotal(
+				order.getOrderTaxTotal() - (orderSummaryOld.getItemTotalTax1() + orderSummaryOld.getItemTotalTax2()) + (orderSummary.getItemTotalTax1() + orderSummary.getItemTotalTax2()));
+		order.setOrderTotal(order.getOrderTotal() - orderSummaryOld.getItemTotalPrice() + itemTotalPrice);
+		order.setOrderFinalTotal(order.getOrderFinalTotal() - (orderSummaryOld.getItemTotalTax1()
+				+ orderSummaryOld.getItemTotalTax2() + orderSummaryOld.getItemTotalPrice()) + (orderSummary.getItemTotalTax1()
+						+ orderSummary.getItemTotalTax2() + orderSummary.getItemTotalPrice()));
+
+		
+		orderSummaryRepository.save(orderSummary);
 
 		ArrayList<OrderSummary> orderSummaryList = orderSummaryRepository.findAllByOrderId(orderId);
 		
-
 		model.addAttribute("orderSummaryList", orderSummaryList);
 		model.addAttribute("order", order);
 
