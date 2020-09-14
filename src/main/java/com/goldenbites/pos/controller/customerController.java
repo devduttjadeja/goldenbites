@@ -35,5 +35,12 @@ public class customerController {
 		model.addAttribute("customer", new Customer());
 		return "Customer/customerRegistration";
 	}
+	
+	
+	@GetMapping("/viewCustomer")
+	public String viewAllCustomer(Model model) {
+		model.addAttribute("customers", customerRepository.findAll());
+		return "Customer/viewCustomer";
+	}
 
 }

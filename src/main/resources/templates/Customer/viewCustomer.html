@@ -1,0 +1,48 @@
+ <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>RC-POS - Product Brands</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="css/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+	
+  </head>
+  <body id="page-top">
+    
+	<center>
+		<h3>View Customers</h3>
+	</center>
+              <div class="card-body" th:if="${not #lists.isEmpty(customers)}">
+                <div class="table-responsive">
+                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                       	<th>Customer Name</th>
+						<th>Customer Email</th>
+						<th>Customer Phone</th>
+						<th>Customer code</th>
+						<th>Customer Created Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class = "info" th:each="customer : ${customers}">
+						<td th:text="${customer.customerName}"></td>
+						<td th:text="${customer.customerEmail}"></td>
+						<td th:text="${customer.customerPhone}"></td>
+						<td th:text="${customer.customerCode}"></td>
+						<td th:text="${customer.customerCreatedDate}"></td>
+					</tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+    </body>
+  </html>
+ 
