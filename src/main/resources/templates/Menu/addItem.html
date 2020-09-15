@@ -53,6 +53,15 @@
 						</div>
 
 						<div class="form-group">
+
+							<p>Is it taxable?</p>
+							<input type="radio" id="yes" name="" th:field="*{itemIsTaxable}" th:value="yes" required="required">
+							<label for="yes">yes</label><br> 
+							<input type="radio" id="no" name="" th:field="*{itemIsTaxable}" th:value="no"> 
+							<label for="no">no</label>
+
+						</div>
+						<!-- <div class="form-group">
 							<label for="">Item Tax1</label> <input type="text"
 								class="form-control" name="" value=""
 								placeholder="Enter Item Tax1" th:field="*{itemTax1}" required>
@@ -62,7 +71,7 @@
 							<label for="">Item Tax2</label> <input type="text"
 								class="form-control" name="" value=""
 								placeholder="Enter Item Tax2" th:field="*{itemTax2}" required>
-						</div>
+						</div> -->
 
 
 						<div class="modal-footer">

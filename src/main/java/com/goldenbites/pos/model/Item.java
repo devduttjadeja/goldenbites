@@ -22,6 +22,9 @@ public class Item {
 	@Field(name = "item_price")
 	private Double itemPrice;
 	
+	@Field(name = "item_istaxable")
+	private String itemIsTaxable;
+
 	@Field(name = "item_tax1")
 	private Double itemTax1;
 	
@@ -96,6 +99,14 @@ public class Item {
 
 	public void setItemTaxTotal(Double itemTaxTotal) {
 		this.itemTaxTotal = itemTaxTotal;
+	}
+	
+	public String getItemIsTaxable() {
+		return itemIsTaxable;
+	}
+
+	public void setItemIsTaxable(String itemIsTaxable) {
+		this.itemIsTaxable = itemIsTaxable;
 	}
 
 	
