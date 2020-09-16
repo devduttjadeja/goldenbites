@@ -43,12 +43,25 @@ public class MenuController {
 	@PostMapping("/addItem")
 	public String saveItem(@ModelAttribute Item item, Model model) {
 		//model.addAttribute("items", item);
+		
+		Double tax1 = 5.0;
+		Double tax2 = 9.75;
+		
 		Calendar calendar = Calendar.getInstance();
 		Date now = calendar.getTime();
 	    item.setItemCreateOrUpdateDate(now);
+	    
+	    if(item.getItemIsTaxable().equalsIgnoreCase("yes")) {
+	    	item.setItemTax1((tax1 / 100) * item.getItemPrice());
+	    	item.setItemTax2((tax2 / 100) * item.getItemPrice());
+	    }else {
+	    	item.setItemTax1(0.0);
+	    	item.setItemTax2(0.0);
+	    }
+	    
 		itemRepository.save(item);
 		model.addAttribute("item", new Item());
-		return "Menu/addItem";
+		return "redirect:/viewItems";
 	}
 	
 	@GetMapping("/delete/{id}")
@@ -75,6 +88,17 @@ public class MenuController {
 	    Calendar calendar = Calendar.getInstance();
 		Date now = calendar.getTime();
 	    item.setItemCreateOrUpdateDate(now);
+	    
+	    Double tax1 = 5.0;
+		Double tax2 = 9.75;
+	    
+	    if(item.getItemIsTaxable().equalsIgnoreCase("yes")) {
+	    	item.setItemTax1((tax1 / 100) * item.getItemPrice());
+	    	item.setItemTax2((tax2 / 100) * item.getItemPrice());
+	    }else {
+	    	item.setItemTax1(0.0);
+	    	item.setItemTax2(0.0);
+	    }
 	    itemRepository.save(item);
 	    model.addAttribute("items", itemRepository.findAll());
 	    return "redirect:/viewItems";

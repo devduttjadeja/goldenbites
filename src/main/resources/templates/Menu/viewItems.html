@@ -29,6 +29,7 @@
 						<th>Item Name</th>
 						<th>Item Category</th>
 						<th>Item Price</th>
+						<th>Item Taxable</th>
 						<th>Item Tax1</th>
 						<th>Item Tax2</th>
 						<th>Item TaxTotal</th>
@@ -42,6 +43,7 @@
 						<td th:text="${item.itemName}"></td>
 						<td th:text="${item.itemCategory}"></td>
 						<td th:text="${item.itemPrice}"></td>
+						<td th:text="${item.itemIsTaxable}"></td>
 						<td th:text="${item.itemTax1}"></td>
 						<td th:text="${item.itemTax2}"></td>
 						<td th:text="${item.itemTax1 + item.itemTax2}"></td>
