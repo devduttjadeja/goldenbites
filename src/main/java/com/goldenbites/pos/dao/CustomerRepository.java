@@ -6,4 +6,5 @@ import com.goldenbites.pos.model.Customer;
 
 public interface CustomerRepository extends MongoRepository<Customer, String> {
 
+	Customer findByCustomerId(String id);
 }

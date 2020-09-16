@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Customer {
 	
 	@Id
-	@Field(name = "customer_id")
 	private String customerId;
 
 	@Field(name = "customer_name")
