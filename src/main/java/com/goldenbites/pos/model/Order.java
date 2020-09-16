@@ -32,6 +32,17 @@ public class Order {
 	
 	@Field(name = "order_finaltotal")
 	private Double orderFinalTotal;
+	
+	@Field(name = "order_customercode")
+	private String orderCustomerCode;
+
+	public String getOrderCustomerCode() {
+		return orderCustomerCode;
+	}
+
+	public void setOrderCustomerCode(String orderCustomerCode) {
+		this.orderCustomerCode = orderCustomerCode;
+	}
 
 	public String getOrderId() {
 		return orderId;

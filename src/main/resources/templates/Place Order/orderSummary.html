@@ -27,7 +27,6 @@
 					<tr>
 						<th>Item Name</th>
 						<th>Item Quantity</th>
-
 						<th>Item Total Tax1</th>
 						<th>Item Total Tax2</th>
 						<th>Item Total Price</th>
@@ -59,7 +58,7 @@
 				<p th:text="${order.orderFinalTotal}"></p>
 			</div>
 
-			<a href="/customerSelection">Customer Selection</a> <a
+			<a th:href="@{/customerSelection/{id}(id=${order.orderId})}">Customer Selection</a> <a
 				href="/orderSummary"> Back </a>
 
 		</div>

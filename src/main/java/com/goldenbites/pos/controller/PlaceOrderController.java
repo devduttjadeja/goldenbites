@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.goldenbites.pos.dao.CustomerRepository;
 import com.goldenbites.pos.dao.ItemRepository;
 import com.goldenbites.pos.dao.OrderRepository;
 import com.goldenbites.pos.dao.OrderSummaryRepository;
@@ -33,6 +34,8 @@ public class PlaceOrderController {
 	OrderRepository orderRepository;
 	@Autowired
 	OrderSummaryRepository orderSummaryRepository;
+	@Autowired
+	CustomerRepository customerRepository;
 
 	@GetMapping("/home")
 	public String homePage(Model model) {
@@ -172,8 +175,6 @@ public class PlaceOrderController {
 		orderSummary.setOrderSummaryId(id);
 		orderSummary.setOrderId(orderId);
 
-		double orderTotal = 0, orderTax1 = 0, orderTax2 = 0, orderTaxTotal = 0, orderFinalTotal = 0;
-
 		double itemTotalPrice = 0, itemTotalTax1 = 0, itemTotalTax2 = 0;
 
 		Item item = itemRepository.findByItemName(orderSummary.getItemName());
@@ -214,10 +215,21 @@ public class PlaceOrderController {
 		return "Place Order/orderSummary";
 	}
 
-	@GetMapping("/customerSelection")
-	public String customerSelection(Model model) {
-		// model.addAttribute("user", new User());
+	@GetMapping("/customerSelection/{id}")
+	public String customerSelectionDisplay(@PathVariable("id") String orderId, Model model) {
+		model.addAttribute("customers", customerRepository.findAll());
+		Order order = orderRepository.findByOrderId(orderId);
+		model.addAttribute("order", order);
 		return "Place Order/customerSelection";
+	}
+	
+	@GetMapping("/customerSelection/add/{orderId}/{customerCode}")
+	public String customerSelectionAddToOrder(@PathVariable("orderId") String orderId, @PathVariable("customerCode") String customerCode,
+			Model model) {
+		Order order = orderRepository.findByOrderId(orderId);
+		order.setOrderCustomerCode(customerCode);
+		orderRepository.save(order);
+		return "Place Order/PaymentOption";
 	}
 
 	@GetMapping("/payment")
