@@ -3,6 +3,7 @@ package com.goldenbites.pos.controller;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.decimal4j.util.DoubleRounder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,10 @@ public class MenuController {
 
 	@Autowired
 	ItemRepository itemRepository;
+	
+	final Double tax1 = 5.0;
+	final Double tax2 = 9.75;
+	final int precision = 2;
 
 	@GetMapping("/viewItems")
 	public String viewItems(Model model) {
@@ -52,8 +57,8 @@ public class MenuController {
 	    item.setItemCreateOrUpdateDate(now);
 	    
 	    if(item.getItemIsTaxable().equalsIgnoreCase("yes")) {
-	    	item.setItemTax1((tax1 / 100) * item.getItemPrice());
-	    	item.setItemTax2((tax2 / 100) * item.getItemPrice());
+	    	item.setItemTax1(DoubleRounder.round((tax1 / 100) * item.getItemPrice(), precision));
+	    	item.setItemTax2(DoubleRounder.round((tax2 / 100) * item.getItemPrice(), precision));
 	    }else {
 	    	item.setItemTax1(0.0);
 	    	item.setItemTax2(0.0);
@@ -89,12 +94,9 @@ public class MenuController {
 		Date now = calendar.getTime();
 	    item.setItemCreateOrUpdateDate(now);
 	    
-	    Double tax1 = 5.0;
-		Double tax2 = 9.75;
-	    
 	    if(item.getItemIsTaxable().equalsIgnoreCase("yes")) {
-	    	item.setItemTax1((tax1 / 100) * item.getItemPrice());
-	    	item.setItemTax2((tax2 / 100) * item.getItemPrice());
+	    	item.setItemTax1(DoubleRounder.round((tax1 / 100) * item.getItemPrice(), precision));
+	    	item.setItemTax2(DoubleRounder.round((tax2 / 100) * item.getItemPrice(), precision));
 	    }else {
 	    	item.setItemTax1(0.0);
 	    	item.setItemTax2(0.0);

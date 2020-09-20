@@ -7,6 +7,8 @@ import com.goldenbites.pos.model.Order;
 public interface OrderRepository extends MongoRepository<Order, String> {
 
 	Order findByOrderId(String orderId);
+
+	Order findFirstByOrderByOrderDateDesc();
   
 }
 

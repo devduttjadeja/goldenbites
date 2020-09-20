@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.decimal4j.util.DoubleRounder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import com.goldenbites.pos.dao.ItemRepository;
 import com.goldenbites.pos.dao.OrderRepository;
 import com.goldenbites.pos.dao.OrderSummaryRepository;
 import com.goldenbites.pos.dao.UserRepository;
+import com.goldenbites.pos.model.Customer;
 import com.goldenbites.pos.model.Item;
 import com.goldenbites.pos.model.Order;
 import com.goldenbites.pos.model.OrderCreation;
@@ -36,6 +38,8 @@ public class PlaceOrderController {
 	OrderSummaryRepository orderSummaryRepository;
 	@Autowired
 	CustomerRepository customerRepository;
+	
+	final int precision = 2;
 
 	@GetMapping("/home")
 	public String homePage(Model model) {
@@ -97,11 +101,11 @@ public class PlaceOrderController {
 		Calendar calendar = Calendar.getInstance();
 		Date now = calendar.getTime();
 		order.setOrderDate(now);
-		order.setOrderTax1(orderTax1);
-		order.setOrderTax2(orderTax2);
-		order.setOrderTaxTotal(orderTaxTotal);
-		order.setOrderTotal(orderTotal);
-		order.setOrderFinalTotal(orderFinalTotal);
+		order.setOrderTax1(DoubleRounder.round(orderTax1, precision));
+		order.setOrderTax2(DoubleRounder.round(orderTax2, precision));
+		order.setOrderTaxTotal(DoubleRounder.round(orderTaxTotal, precision));
+		order.setOrderTotal(DoubleRounder.round(orderTotal, precision));
+		order.setOrderFinalTotal(DoubleRounder.round(orderFinalTotal, precision));
 
 		orderRepository.save(order);
 		String orderId = order.getOrderId();
@@ -138,13 +142,13 @@ public class PlaceOrderController {
 		Calendar calendar = Calendar.getInstance();
 		Date now = calendar.getTime();
 		order.setOrderDate(now);
-		order.setOrderTax1(order.getOrderTax1() - orderSummary.getItemTotalTax1());
-		order.setOrderTax2(order.getOrderTax2() - orderSummary.getItemTotalTax2());
-		order.setOrderTaxTotal(
-				order.getOrderTaxTotal() - (orderSummary.getItemTotalTax1() + orderSummary.getItemTotalTax2()));
-		order.setOrderTotal(order.getOrderTotal() - orderSummary.getItemTotalPrice());
-		order.setOrderFinalTotal(order.getOrderFinalTotal() - (orderSummary.getItemTotalTax1()
-				+ orderSummary.getItemTotalTax2() + orderSummary.getItemTotalPrice()));
+		order.setOrderTax1(DoubleRounder.round(order.getOrderTax1() - orderSummary.getItemTotalTax1(), precision));
+		order.setOrderTax2(DoubleRounder.round(order.getOrderTax2() - orderSummary.getItemTotalTax2(), precision));
+		order.setOrderTaxTotal(DoubleRounder.round(order.getOrderTaxTotal() - (orderSummary.getItemTotalTax1() + orderSummary.getItemTotalTax2()), precision)
+				);
+		order.setOrderTotal(DoubleRounder.round(order.getOrderTotal() - orderSummary.getItemTotalPrice(), precision));
+		order.setOrderFinalTotal(DoubleRounder.round(order.getOrderFinalTotal() - (orderSummary.getItemTotalTax1()
+				+ orderSummary.getItemTotalTax2() + orderSummary.getItemTotalPrice()), precision));
 
 		orderSummaryRepository.deleteById(id);
 
@@ -195,16 +199,15 @@ public class PlaceOrderController {
 		Date now = calendar.getTime();
 		
 		order.setOrderDate(now);
-		order.setOrderTax1(order.getOrderTax1() - orderSummaryOld.getItemTotalTax1() + itemTotalTax1);
-		order.setOrderTax2(order.getOrderTax2() - orderSummaryOld.getItemTotalTax2() + itemTotalTax2);
-		order.setOrderTaxTotal(
-				order.getOrderTaxTotal() - (orderSummaryOld.getItemTotalTax1() + orderSummaryOld.getItemTotalTax2()) + (orderSummary.getItemTotalTax1() + orderSummary.getItemTotalTax2()));
-		order.setOrderTotal(order.getOrderTotal() - orderSummaryOld.getItemTotalPrice() + itemTotalPrice);
-		order.setOrderFinalTotal(order.getOrderFinalTotal() - (orderSummaryOld.getItemTotalTax1()
+		order.setOrderTax1(DoubleRounder.round(order.getOrderTax1() - orderSummaryOld.getItemTotalTax1() + itemTotalTax1, precision));
+		order.setOrderTax2(DoubleRounder.round(order.getOrderTax2() - orderSummaryOld.getItemTotalTax2() + itemTotalTax2, precision));
+		order.setOrderTaxTotal(DoubleRounder.round(order.getOrderTaxTotal() - (orderSummaryOld.getItemTotalTax1() + orderSummaryOld.getItemTotalTax2()) + (orderSummary.getItemTotalTax1() + orderSummary.getItemTotalTax2()), precision)
+				);
+		order.setOrderTotal(DoubleRounder.round(order.getOrderTotal() - orderSummaryOld.getItemTotalPrice() + itemTotalPrice, precision));
+		order.setOrderFinalTotal(DoubleRounder.round(order.getOrderFinalTotal() - (orderSummaryOld.getItemTotalTax1()
 				+ orderSummaryOld.getItemTotalTax2() + orderSummaryOld.getItemTotalPrice()) + (orderSummary.getItemTotalTax1()
-						+ orderSummary.getItemTotalTax2() + orderSummary.getItemTotalPrice()));
+						+ orderSummary.getItemTotalTax2() + orderSummary.getItemTotalPrice()), precision));
 
-		
 		orderSummaryRepository.save(orderSummary);
 
 		ArrayList<OrderSummary> orderSummaryList = orderSummaryRepository.findAllByOrderId(orderId);
@@ -229,18 +232,25 @@ public class PlaceOrderController {
 		Order order = orderRepository.findByOrderId(orderId);
 		order.setOrderCustomerCode(customerCode);
 		orderRepository.save(order);
-		return "Place Order/PaymentOption";
+		return "Place Order/PaymentOptions";
 	}
 
-	@GetMapping("/payment")
-	public String paymentOptions(Model model) {
-		// model.addAttribute("user", new User());
-		return "Place Order/paymentOptions";
+	@GetMapping("/invoice")
+	public String invoiceDisplay(Model model) {
+		Order order = orderRepository.findFirstByOrderByOrderDateDesc();
+		ArrayList<OrderSummary> orderSummaryList = orderSummaryRepository.findAllByOrderId(order.getOrderId());
+		Customer customer = customerRepository.findByCustomerCode(order.getOrderCustomerCode());
+		
+		model.addAttribute("orderSummaryList", orderSummaryList);
+		model.addAttribute("order", order);
+		model.addAttribute("customer", customer);
+		
+		return "Place Order/invoice";
 	}
-
+	
 	@GetMapping("/exit")
 	public String exitDisplay(Model model) {
-		// model.addAttribute("user", new User());
+		
 		return "Place Order/exit";
 	}
 
