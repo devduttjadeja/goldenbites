@@ -248,6 +248,19 @@ public class PlaceOrderController {
 		return "Place Order/invoice";
 	}
 	
+	@GetMapping("/invoice/{id}")
+	public String invoiceDisplayForOneOrder(@PathVariable("id") String orderId,Model model) {
+		Order order = orderRepository.findByOrderId(orderId);
+		ArrayList<OrderSummary> orderSummaryList = orderSummaryRepository.findAllByOrderId(order.getOrderId());
+		Customer customer = customerRepository.findByCustomerCode(order.getOrderCustomerCode());
+		
+		model.addAttribute("orderSummaryList", orderSummaryList);
+		model.addAttribute("order", order);
+		model.addAttribute("customer", customer);
+		
+		return "Place Order/invoice";
+	}
+	
 	@GetMapping("/exit")
 	public String exitDisplay(Model model) {
 		

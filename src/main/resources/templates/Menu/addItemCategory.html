@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+<link href="css/styles.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+
+	<form th:action="@{/addItemCategory}" th:object="${itemCategory}" method="post">
+		<!-- Add Product Modal-->
+
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-primary text-white">
+					<h5 class="modal-title" id="exampleModalLabel">
+						<i class="fa fa-tag"></i> Add New Item Category
+					</h5>
+				</div>
+				<form class="">
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="">Item Category Name</label> <input type="text"
+								class="form-control" name="" value=""
+								placeholder="Enter Item Category Name" th:field="*{itemCategoryName}" required>
+							<small class="text-muted">Be more specific with Item Category names. Make sure its unique.</small>
+						</div>
+						
+
+						<div class="modal-footer">
+							<a href="/home" class="btn btn-secondary" type="button">Back</a>
+							<input type="submit" class="btn btn-primary" value="Add Category">
+						</div>
+				</form>
+			</div>
+		</div>
+		<!-- Add Product Type-->
+	</form>
+
+
+
+</body>
+</html>
