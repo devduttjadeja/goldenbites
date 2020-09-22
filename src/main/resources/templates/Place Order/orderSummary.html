@@ -57,10 +57,9 @@
 				Final Total (Tax inclusive) :
 				<p th:text="${order.orderFinalTotal}"></p>
 			</div>
-
-			<a th:href="@{/customerSelection/{id}(id=${order.orderId})}">Customer Selection</a> <a
-				href="/orderSummary"> Back </a>
-
+			
+			  <a th:href="@{/customerSelection/{id}(id=${order.orderId})}" class="btn btn-primary" type="button">Customer Selection</a>
+			  <a href="/itemsListForPlaceOrder" class="btn btn-secondary" type="button">Back</a>
 		</div>
 	</div>
 
