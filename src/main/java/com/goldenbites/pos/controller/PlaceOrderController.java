@@ -1,8 +1,14 @@
 package com.goldenbites.pos.controller;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.decimal4j.util.DoubleRounder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +30,9 @@ import com.goldenbites.pos.model.Item;
 import com.goldenbites.pos.model.Order;
 import com.goldenbites.pos.model.OrderCreation;
 import com.goldenbites.pos.model.OrderSummary;
+import com.goldenbites.pos.model.User;
+import com.goldenbites.pos.view.InvoicePDFExporter;
+import com.lowagie.text.DocumentException;
 
 @Controller
 public class PlaceOrderController {
@@ -266,5 +275,26 @@ public class PlaceOrderController {
 		
 		return "Place Order/exit";
 	}
+	
+	
+	@GetMapping("/invoice/export/pdf/{id}")
+    public void exportToPDF(@PathVariable("id") String orderId,Model model,HttpServletResponse response) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+         
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+         
+        Order order = orderRepository.findByOrderId(orderId);
+		ArrayList<OrderSummary> orderSummaryList = orderSummaryRepository.findAllByOrderId(order.getOrderId());
+		Customer customer = customerRepository.findByCustomerCode(order.getOrderCustomerCode());
+	    
+         
+        InvoicePDFExporter exporter = new InvoicePDFExporter(order,orderSummaryList,customer);
+        exporter.export(response);
+         
+    }
 
 }

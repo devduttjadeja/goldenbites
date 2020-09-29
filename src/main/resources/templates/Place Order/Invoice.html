@@ -77,6 +77,7 @@
 
 			</table>
       <a href="/home" class="btn btn-secondary" type="button">Home</a>
+      <td><a th:href="@{/invoice/export/pdf/{id}(id=${order.orderId})}"class="btn btn-secondary" type="button">Export Invoice</a></td>
 	</div>
 </body>
 </html>
