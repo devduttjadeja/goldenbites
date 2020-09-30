@@ -18,7 +18,7 @@
 </head>
 
 <body>
-	<form th:action="@{/registerCustomer}" th:object="${customer}"
+	<form th:action="@{/home/registerCustomer}" th:object="${customer}"
 		method="post">
 		<!-- Add Product Modal-->
 
@@ -60,7 +60,7 @@
 
 
 						<div class="modal-footer">
-							<a href="/menuHome" class="btn btn-secondary" type="button">Back</a>
+							<a href="/home" class="btn btn-secondary" type="button">Back</a>
 							<input type="submit" class="btn btn-primary" value="Register">
 						</div>
 				</form>

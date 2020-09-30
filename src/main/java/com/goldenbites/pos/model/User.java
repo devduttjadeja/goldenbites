@@ -20,6 +20,27 @@ public class User {
 	@Field(name = "user_role")
 	private String userRole;
 
+	private int active;
+
+	public User(String userName, String userPassword, String userRole) {
+		this.userName = userName;
+		this.userPassword = userPassword;
+		this.userRole = userRole;
+		this.active = 1;
+	}
+
+	public User() {
+
+	}
+
+	public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
+	}
+
 	public String getUserId() {
 		return userId;
 	}

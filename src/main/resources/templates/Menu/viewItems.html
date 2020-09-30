@@ -46,10 +46,10 @@
 						<td th:text="${item.itemIsTaxable}"></td>
 						<td th:text="${item.itemTax1}"></td>
 						<td th:text="${item.itemTax2}"></td>
-						<td th:text="${item.itemTax1 + item.itemTax2}"></td>
+						<td th:text="${item.itemTaxTotal}"></td>
 						<td th:text="${item.itemCreateOrUpdateDate}"></td>
-						<td><a th:href="@{/edit/{id}(id=${item.itemId})}">Edit</a></td>
-						<td><a th:href="@{/delete/{id}(id=${item.itemId})}">Delete</a></td>
+						<td><a th:href="@{/home/menuHome/viewItems/edit/{id}(id=${item.itemId})}">Edit</a></td>
+						<td><a th:href="@{/home/menuHome/viewItems/delete/{id}(id=${item.itemId})}">Delete</a></td>
 					</tr>
 				</tbody>
 			</table>

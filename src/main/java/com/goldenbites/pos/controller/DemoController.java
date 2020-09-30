@@ -8,7 +8,7 @@ public class DemoController {
 
 	@RequestMapping("/")
 	public String displayLoginPage() {
-		return "index"; 
+		return "login";
 	}
 	
 	@RequestMapping("/registerStudent")

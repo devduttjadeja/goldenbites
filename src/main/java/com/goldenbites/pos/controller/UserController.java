@@ -9,33 +9,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.goldenbites.pos.dao.UserRepository;
 import com.goldenbites.pos.model.User;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/")
 public class UserController {
 
 	@Autowired
 	UserRepository userRepository;
 	
-	@GetMapping("/login")
-	public String greetingForm(Model model) {
-		model.addAttribute("user", new User());
+	@GetMapping("login")
+	public String login(Model model) {
+
 		return "login";
 	}
 
-	@PostMapping("/login")
-	public String greetingSubmit(@ModelAttribute User user, Model model) {
-		
-		User userNew = userRepository.findByUserNameAndUserPasswordAndUserRole(user.getUserName(), user.getUserPassword(), user.getUserRole());
-		
-		if(userNew !=  null) {
-			return "home";
-		}
-		else {
-			model.addAttribute("errorMessage", "Invalid Username or Password");
-			return "login";
-		}
-			
-			
-	}
+//	@PostMapping("/login")
+//	public String greetingSubmit(@ModelAttribute User user, Model model) {
+//
+//		User userNew = userRepository.findByUserNameAndUserPasswordAndUserRole(user.getUserName(), user.getUserPassword(), user.getUserRole());
+//
+//		if(userNew !=  null) {
+//			return "home";
+//		}
+//		else {
+//			model.addAttribute("errorMessage", "Invalid Username or Password");
+//			return "login";
+//		}
+//	}
 	
 }

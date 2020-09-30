@@ -53,7 +53,7 @@ public class PlaceOrderController {
 		return "Place Order/categories";
 	}
 
-	@GetMapping("/itemsListForPlaceOrder")
+	@GetMapping("/home/itemsListForPlaceOrder")
 	public String itemDisplay(Model model) {
 		OrderCreation orderCreation = new OrderCreation();
 
@@ -66,7 +66,7 @@ public class PlaceOrderController {
 		return "Place Order/itemsListForPlaceOrder";
 	}
 
-	@PostMapping("/itemsListForPlaceOrder/add")
+	@PostMapping("/home/itemsListForPlaceOrder/add")
 	public String addItemsForPlaceOrder(@ModelAttribute OrderCreation orderCreation, Model model) {
 		ArrayList<OrderSummary> list = orderCreation.getOrderSummaryList();
 		double orderTotal = 0, orderTax1 = 0, orderTax2 = 0, orderTaxTotal = 0, orderFinalTotal = 0;
@@ -125,13 +125,13 @@ public class PlaceOrderController {
 		return "Place Order/orderSummary";
 	}
 
-	@GetMapping("/orderSummary")
+	@GetMapping("/home/itemsListForPlaceOrder/orderSummary")
 	public String orderSummaryDisplay(Model model) {
 		// model.addAttribute("user", new User());
 		return "Place Order/orderSummary";
 	}
 
-	@GetMapping("/orderSummary/delete/{id}")
+	@GetMapping("/home/itemsListForPlaceOrder/orderSummary/delete/{id}")
 	public String orderSummaryDelete(@PathVariable("id") String id, Model model) {
 
 		OrderSummary orderSummary = orderSummaryRepository.findByOrderSummaryId(id);
@@ -150,6 +150,7 @@ public class PlaceOrderController {
 		order.setOrderFinalTotal(DoubleRounder.round(order.getOrderFinalTotal() - (orderSummary.getItemTotalTax1()
 				+ orderSummary.getItemTotalTax2() + orderSummary.getItemTotalPrice()), precision));
 
+		orderRepository.save(order);
 		orderSummaryRepository.deleteById(id);
 
 		ArrayList<OrderSummary> orderSummaryList = orderSummaryRepository.findAllByOrderId(orderId);
@@ -160,14 +161,14 @@ public class PlaceOrderController {
 		return "Place Order/orderSummary";
 	}
 
-	@GetMapping("/orderSummary/edit/{id}")
+	@GetMapping("/home/itemsListForPlaceOrder/orderSummary/edit/{id}")
 	public String showUpdateOrderForm(@PathVariable("id") String id, Model model) {
 		OrderSummary orderSummary = orderSummaryRepository.findByOrderSummaryId(id);
 		model.addAttribute("orderSummary", orderSummary);
 		return "Place Order/updateOrderSummary";
 	}
 
-	@PostMapping("/orderSummary/update/{id}")
+	@PostMapping("/home/itemsListForPlaceOrder/orderSummary/update/{id}")
 	public String updateOrder(@PathVariable("id") String id, @ModelAttribute OrderSummary orderSummary,
 			BindingResult result, Model model) {
 
@@ -208,6 +209,7 @@ public class PlaceOrderController {
 				+ orderSummaryOld.getItemTotalTax2() + orderSummaryOld.getItemTotalPrice()) + (orderSummary.getItemTotalTax1()
 						+ orderSummary.getItemTotalTax2() + orderSummary.getItemTotalPrice()), precision));
 
+		orderRepository.save(order);
 		orderSummaryRepository.save(orderSummary);
 
 		ArrayList<OrderSummary> orderSummaryList = orderSummaryRepository.findAllByOrderId(orderId);
@@ -218,7 +220,7 @@ public class PlaceOrderController {
 		return "Place Order/orderSummary";
 	}
 
-	@GetMapping("/customerSelection/{id}")
+	@GetMapping("/home/itemsListForPlaceOrder/orderSummary/customerSelection/{id}")
 	public String customerSelectionDisplay(@PathVariable("id") String orderId, Model model) {
 		model.addAttribute("customers", customerRepository.findAll());
 		Order order = orderRepository.findByOrderId(orderId);
@@ -226,7 +228,7 @@ public class PlaceOrderController {
 		return "Place Order/customerSelection";
 	}
 	
-	@GetMapping("/customerSelection/add/{orderId}/{customerCode}")
+	@GetMapping("/home/itemsListForPlaceOrder/orderSummary/customerSelection/add/{orderId}/{customerCode}")
 	public String customerSelectionAddToOrder(@PathVariable("orderId") String orderId, @PathVariable("customerCode") String customerCode,
 			Model model) {
 		Order order = orderRepository.findByOrderId(orderId);
@@ -235,7 +237,7 @@ public class PlaceOrderController {
 		return "Place Order/PaymentOptions";
 	}
 
-	@GetMapping("/invoice")
+	@GetMapping("/home/itemsListForPlaceOrder/orderSummary/invoice")
 	public String invoiceDisplay(Model model) {
 		Order order = orderRepository.findFirstByOrderByOrderDateDesc();
 		ArrayList<OrderSummary> orderSummaryList = orderSummaryRepository.findAllByOrderId(order.getOrderId());
@@ -248,7 +250,7 @@ public class PlaceOrderController {
 		return "Place Order/invoice";
 	}
 	
-	@GetMapping("/invoice/{id}")
+	@GetMapping("/home/viewOrders/invoice/{id}")
 	public String invoiceDisplayForOneOrder(@PathVariable("id") String orderId,Model model) {
 		Order order = orderRepository.findByOrderId(orderId);
 		ArrayList<OrderSummary> orderSummaryList = orderSummaryRepository.findAllByOrderId(order.getOrderId());

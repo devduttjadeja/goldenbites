@@ -41,8 +41,8 @@
 						<td th:text="${customer.customerPhone}"></td>
 						<td th:text="${customer.customerCode}"></td>
 						<td th:text="${customer.customerCreatedDate}"></td>
-						<td><a th:href="@{/customerEdit/{id}(id=${customer.customerId})}">Edit</a></td>
-						<td><a th:href="@{/customerDelete/{id}(id=${customer.customerId})}">Delete</a></td>
+						<td><a th:href="@{/home/viewCustomer/customerEdit/{id}(id=${customer.customerId})}">Edit</a></td>
+						<td><a th:href="@{/home/viewCustomer/customerDelete/{id}(id=${customer.customerId})}">Delete</a></td>
 					</tr>
                     </tbody>
                   </table>

@@ -19,13 +19,13 @@ public class ItemCategoryController {
 	@Autowired
 	ItemCategoryRepository itemCategoryRepository;	
 	
-	@GetMapping("/addItemCategory")
+	@GetMapping("home/addItemCategory")
 	public String displayItemCategoryForm(Model model) {
 		model.addAttribute("itemCategory", new ItemCategory());
 		return "Menu/addItemCategory";
 	}
 
-	@PostMapping("/addItemCategory")
+	@PostMapping("home/addItemCategory")
 	public String saveItemCategory(@ModelAttribute ItemCategory itemCategory, Model model) {
 		Calendar calendar = Calendar.getInstance();
 		Date now = calendar.getTime();

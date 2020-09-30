@@ -22,13 +22,13 @@ public class customerController {
 	@Autowired
 	CustomerRepository customerRepository;
 
-	@GetMapping("/registerCustomer")
+	@GetMapping("/home/registerCustomer")
 	public String displayCustomerRegistrationForm(Model model) {
 		model.addAttribute("customer", new Customer());
 		return "Customer/customerRegistration";
 	}
 	
-	@PostMapping("/registerCustomer")
+	@PostMapping("/home/registerCustomer")
 	public String registerCustomer(@ModelAttribute Customer customer,Model model) {
 		
 		Calendar calendar = Calendar.getInstance();
@@ -40,21 +40,21 @@ public class customerController {
 	}
 	
 	
-	@GetMapping("/viewCustomer")
+	@GetMapping("/home/viewCustomer")
 	public String viewAllCustomer(Model model) {
 		model.addAttribute("customers", customerRepository.findAll());
 		return "Customer/viewCustomer";
 	}
 	
-	@GetMapping("/customerDelete/{id}")
+	@GetMapping("/home/viewCustomer/customerDelete/{id}")
 	public String deleteCustomer(@PathVariable("id") String id, Model model) {
 		customerRepository.deleteById(id);
 	    model.addAttribute("customers", customerRepository.findAll());
-	    return "redirect:/viewCustomer";
+	    return "redirect:/home/viewCustomer";
 	}
 	
 	
-	@GetMapping("/customerEdit/{id}")
+	@GetMapping("/home/viewCustomer/customerEdit/{id}")
 	public String showUpdateForm(@PathVariable("id") String id, Model model) {
 	    Customer customer = customerRepository.findByCustomerId(id);
 	    model.addAttribute("customer", customer);
@@ -62,7 +62,7 @@ public class customerController {
 	}
 	
 	
-	@PostMapping("/updateCustomer/{id}")
+	@PostMapping("/home/viewCustomer/updateCustomer/{id}")
 	public String updateCustomer(@PathVariable("id") String id, @ModelAttribute Customer customer, 
 	  BindingResult result, Model model) {     
 		customer.setCustomerId(id);
@@ -71,7 +71,7 @@ public class customerController {
 		customer.setCustomerCreatedDate(now);
 		customerRepository.save(customer);
 	    model.addAttribute("customers", customerRepository.findAll());
-	    return "redirect:/viewCustomer";
+	    return "redirect:/home/viewCustomer";
 	}
 
 }

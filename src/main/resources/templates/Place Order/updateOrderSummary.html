@@ -18,7 +18,7 @@
 </head>
 
 <body>
-	<form th:action="@{/orderSummary/update/{id}(id=${orderSummary.orderSummaryId})}"
+	<form th:action="@{/home/itemsListForPlaceOrder/orderSummary/update/{id}(id=${orderSummary.orderSummaryId})}"
 		th:object="${orderSummary}" method="post">
 		<!-- Add Product Modal-->
 
