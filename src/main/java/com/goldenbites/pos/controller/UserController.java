@@ -12,17 +12,12 @@ import com.goldenbites.pos.model.User;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
 public class UserController {
 
 	@Autowired
 	UserRepository userRepository;
 	
-	@GetMapping("login")
-	public String login(Model model) {
 
-		return "login";
-	}
 
 //	@PostMapping("/login")
 //	public String greetingSubmit(@ModelAttribute User user, Model model) {

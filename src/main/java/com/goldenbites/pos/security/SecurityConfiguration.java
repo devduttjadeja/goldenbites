@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -37,17 +38,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		http
 				.authorizeRequests()
 
-				.antMatchers("/login.html").permitAll()
+//				.antMatchers("/login.html").permitAll()
+				.antMatchers("/index.html").permitAll()
 				.antMatchers("/home/*").authenticated()
 //				.antMatchers("/itemsListForPlaceOrder").authenticated()
 //				.antMatchers("/home").authenticated()
 //				.antMatchers("/viewOrders").hasRole("USER")
 				.and()
 				.formLogin()
-				.loginPage("/login")
+				.loginPage("/login").permitAll()
                 .usernameParameter("userName")
                 .passwordParameter("userPassword")
-                .defaultSuccessUrl("/home");
+                .defaultSuccessUrl("/home")
+				.and()
+				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
 	}
 
 	@Bean
