@@ -13,7 +13,7 @@ public class OrderController {
 	  @Autowired
 	  OrderRepository orderRepository;
 
-		@GetMapping("/viewOrders")
+		@GetMapping("/home/viewOrders")
 		public String viewOrders(Model model) {
 			model.addAttribute("orders", orderRepository.findAll());
 			return "Order/viewOrders";

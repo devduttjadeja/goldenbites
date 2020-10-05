@@ -53,10 +53,9 @@
 						class="fa fa-line-chart"></i> Activity Log
 					</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#" data-toggle="modal"
-						data-target="#logoutModal"> <i class="fa fa-power-off"></i>
-						Logout
-					</a>
+					<form method="post" th:action="@{/logout}">
+					<a class="dropdown-item"> <button type="submit">Logout</button>
+					</a></form>
 				</div></li>
 		</ul>
 	</nav>
@@ -72,15 +71,15 @@
 				</ol>
 				<!-- Icon Cards-->
 
-				<a href="/itemsListForPlaceOrder"
+				<a href="/home/itemsListForPlaceOrder"
 					class="btn btn-primary btn-lg btn-block">Place Order</a> <a
-					href="/viewOrders" class="btn btn-secondary btn-lg btn-block">View Orders</a>
-				<a href="/menuHome" class="btn btn-info btn-lg btn-block">Menu
-					Update</a> <a href="/registerCustomer"
+					href="/home/viewOrders" class="btn btn-secondary btn-lg btn-block">View Orders</a>
+				<a href="/home/menuHome" class="btn btn-info btn-lg btn-block">Menu
+					Update</a> <a href="/home/registerCustomer"
 					class="btn btn-warning btn-lg btn-block">Customer Registration</a>
-					<a href="/viewCustomer"
+					<a href="/home/viewCustomer"
 					class="btn btn-secondary btn-lg btn-block">View Customers</a>
-					<a href="/addItemCategory"
+					<a href="home/addItemCategory"
 					class="btn btn-primary btn-lg btn-block">Add Item Category</a>
 					
 			</div>
@@ -106,9 +105,11 @@
 					<div class="modal-body">Select "Logout" below if you are
 						ready to end your current session.</div>
 					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button"
-							data-dismiss="modal">Cancel</button>
-						<a class="btn btn-danger" href="login.html">Logout</a>
+						<form method = "post" th:action="@{/logout}">
+							<button class="btn btn-secondary" type="button"
+									data-dismiss="modal">Cancel</button>
+							<a class="btn btn-danger" href="login.html">Logout</a>
+						</form>
 					</div>
 				</div>
 			</div>

@@ -46,7 +46,7 @@
 						<td th:text="${order.orderTaxTotal}"></td>
 						<td th:text="${order.orderFinalTotal}"></td>
 						<td th:text="${order.orderCustomerCode}"></td>
-						<td><a th:href="@{/invoice/{id}(id=${order.orderId})}">Invoice</a></td>
+						<td><a th:href="@{/home/viewOrders/invoice/{id}(id=${order.orderId})}">Invoice</a></td>
 					</tr>
 				</tbody>
 			</table>

@@ -42,9 +42,9 @@
 						<td th:text="${orderSummary.itemTotalTax2}"></td>
 						<td th:text="${orderSummary.itemTotalPrice}"></td>
 						<td><a
-							th:href="@{/orderSummary/edit/{id}(id=${orderSummary.orderSummaryId})}">Edit</a></td>
+							th:href="@{/home/itemsListForPlaceOrder/orderSummary/edit/{id}(id=${orderSummary.orderSummaryId})}">Edit</a></td>
 						<td><a
-							th:href="@{/orderSummary/delete/{id}(id=${orderSummary.orderSummaryId})}">Delete</a></td>
+							th:href="@{/home/itemsListForPlaceOrder/orderSummary/delete/{id}(id=${orderSummary.orderSummaryId})}">Delete</a></td>
 					</tr>
 
 				</tbody>
@@ -58,7 +58,7 @@
 				<p th:text="${order.orderFinalTotal}"></p>
 			</div>
 			
-			  <a th:href="@{/customerSelection/{id}(id=${order.orderId})}" class="btn btn-primary" type="button">Customer Selection</a>
+			  <a th:href="@{/home/itemsListForPlaceOrder/orderSummary/customerSelection/{id}(id=${order.orderId})}" class="btn btn-primary" type="button">Customer Selection</a>
 			  <a href="/itemsListForPlaceOrder" class="btn btn-secondary" type="button">Back</a>
 		</div>
 	</div>
