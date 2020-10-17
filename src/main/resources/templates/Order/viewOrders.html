@@ -14,11 +14,48 @@
 	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
 	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
 	crossorigin="anonymous">
+	
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-PMjWzHVtwxdq7m7GIxBot5vdxUY+5aKP9wpKtvnNBZrVv1srI8tU6xvFMzG8crLNcMj/8Xl/WWmo/oAP/40p1g==" crossorigin="anonymous" />
+		
 </head>
 <body id="page-top">
 	<center>
 		<h3>View Orders</h3>
 	</center>
+  <form th:action="@{/home/viewOrders/datefilter}">
+	<div class="col-md-4 mt-5">
+		<label for="date">Start Date:</label>
+		<div class="input-group date" id="datetimepicker1"
+			data-target-input="nearest">
+			<input type="text" class="form-control datetimepicker-input"
+				data-target="#datetimepicker1" id="startdate" placeholder="Start Date" autocomplete="off" name = "startdate" />
+			<div class="input-group-append" data-target="#datetimepicker1"
+				data-toggle="datetimepicker">
+				<div class="input-group-text">
+					<i class="fa fa-calendar-alt"></i>
+				</div>
+			</div>
+		</div>
+		
+		<label for="date">End Date:</label>
+		<div class="input-group date" id="datetimepicker2"
+			data-target-input="nearest">
+			<input type="text" class="form-control datetimepicker-input"
+				data-target="#datetimepicker2" id="enddate" placeholder="End Date" autocomplete="off" name = "enddate" />
+			<div class="input-group-append" data-target="#datetimepicker2"
+				data-toggle="datetimepicker">
+				<div class="input-group-text">
+					<i class="fa fa-calendar-alt"></i>
+				</div>
+			</div>
+		</div>
+		
+	 <br></br>	
+	<input type="submit" class="btn btn-primary" value="Filter">
+    <a href="/home" class="btn btn-secondary" type="button">Back</a>
+	</div>
+    </form>
+    
 	<div class="card-body" th:if="${not #lists.isEmpty(orders)}">
 		<div class="table-responsive">
 			<table class="table table-bordered" id="dataTable" width="100%"
@@ -33,7 +70,7 @@
 						<th>Order TaxTotal</th>
 						<th>Order FinalTotal</th>
 						<th>Customer Code</th>
-						<th> Invoice </th>
+						<th>Invoice</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -46,20 +83,51 @@
 						<td th:text="${order.orderTaxTotal}"></td>
 						<td th:text="${order.orderFinalTotal}"></td>
 						<td th:text="${order.orderCustomerCode}"></td>
-						<td><a th:href="@{/home/viewOrders/invoice/{id}(id=${order.orderId})}">Invoice</a></td>
+						<td><a
+							th:href="@{/home/viewOrders/invoice/{id}(id=${order.orderId})}">Invoice</a></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
-
-   <script src="js/jquery.min.js"></script>
+ 
+   
+	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.bundle.min.js"></script>
 	<script src="js/jquery.easing.min.js"></script>
 	<script src="js/jquery.dataTables.js"></script>
 	<script src="js/dataTables.bootstrap4.js"></script>
 	<script src="js/datatables-demo.js"></script>
 	<script src="js/rc-pos.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-2JBCbWoMJPH+Uj7Wq5OLub8E5edWHlTM4ar/YJkZh3plwB2INhhOC3eDoqHm1Za/ZOSksrLlURLoyXVdfQXqwg==" crossorigin="anonymous"></script>
+
+	<script>
+    $.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
+        icons: {
+            time: 'far fa-clock',
+            date: 'far fa-calendar',
+            up: 'fas fa-arrow-up',
+            down: 'fas fa-arrow-down',
+            previous: 'fas fa-chevron-left',
+            next: 'fas fa-chevron-right',
+            today: 'far fa-calendar-check-o',
+            clear: 'far fa-trash',
+            close: 'far fa-times'
+            
+        } });
+
+    $('#datetimepicker1').datetimepicker({
+        format: 'DD-MM-yyyy'
+
+    });
     
+    $('#datetimepicker2').datetimepicker({
+        format: 'DD-MM-yyyy'
+
+    });
+</script>
 </body>
 </html>

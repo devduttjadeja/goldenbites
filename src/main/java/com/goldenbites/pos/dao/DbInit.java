@@ -1,13 +1,13 @@
 package com.goldenbites.pos.dao;
 
-import com.goldenbites.pos.model.User;
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
+import com.goldenbites.pos.model.User;
 
 public class DbInit implements CommandLineRunner {
 
