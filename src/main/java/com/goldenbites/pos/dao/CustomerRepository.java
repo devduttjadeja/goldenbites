@@ -9,4 +9,6 @@ public interface CustomerRepository extends MongoRepository<Customer, String> {
 	Customer findByCustomerId(String id);
 
 	Customer findByCustomerCode(String orderCustomerCode);
+
+	Customer findByCustomerEmail(String customerEmail);
 }

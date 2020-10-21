@@ -1,17 +1,18 @@
 package com.goldenbites.pos.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.goldenbites.pos.dao.CustomerRepository;
 import com.goldenbites.pos.dao.OrderRepository;
+import com.goldenbites.pos.model.Customer;
 
 @Controller
 public class OrderController {
@@ -19,9 +20,18 @@ public class OrderController {
 	  @Autowired
 	  OrderRepository orderRepository;
 
+	  @Autowired
+		CustomerRepository customerRepository;
+	  
 		@GetMapping("/home/viewOrders")
 		public String viewOrders(Model model) {
+			//Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			//String currentPrincipalName = authentication.getName();
+			//Customer customer = customerRepository.findByCustomerEmail(currentPrincipalName);
+			
+			
 			model.addAttribute("orders", orderRepository.findAll());
+			//model.addAttribute("orders", orderRepository.findByOrderCustomerCode(customer.getCustomerCode()));
 			return "Order/viewOrders";
 		}
 	  
@@ -31,6 +41,9 @@ public class OrderController {
 	
 			String[] startdates = startdate.split("-");
 			String[] enddates = enddate.split("-");
+			
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String currentPrincipalName = authentication.getName();
 			
 			Date OrderDateStart = new Date(Integer.parseInt(startdates[2])-1900,Integer.parseInt(startdates[1])-1,Integer.parseInt(startdates[0]));
 			Date OrderDateEnd = new Date(Integer.parseInt(enddates[2])-1900,Integer.parseInt(enddates[1])-1,Integer.parseInt(enddates[0]));

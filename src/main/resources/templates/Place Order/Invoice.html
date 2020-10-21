@@ -56,7 +56,7 @@
 				<td th:text="${orderSummary.itemTotalPrice}"></td>
 			</tr>
 		</table>
-		<div>
+		<div class="card-body">
 			<table>
 				<tr>
 					<td>Total Tax: <span th:text="${order.orderTaxTotal}"></span>
@@ -76,7 +76,7 @@
 				</tr>
 
 			</table>
-      <a href="/home" class="btn btn-secondary" type="button">Home</a>
+      <a href="/home" class="btn btn-primary" type="button">Home</a>
       <td><a th:href="@{/invoice/export/pdf/{id}(id=${order.orderId})}"class="btn btn-secondary" type="button">Export Invoice</a></td>
 	</div>
 </body>

@@ -6,6 +6,8 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,8 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.goldenbites.pos.dao.CustomerRepository;
+import com.goldenbites.pos.dao.UserRepository;
 import com.goldenbites.pos.model.Customer;
-import com.goldenbites.pos.model.Item;
+import com.goldenbites.pos.model.User;
 
 @Controller
 public class customerController {
@@ -26,6 +29,9 @@ public class customerController {
 
 	@Autowired
 	private JavaMailSender emailSender;
+	
+	@Autowired
+	UserRepository userRepository;
 
   @GetMapping("/home/registerCustomer")
 	public String displayCustomerRegistrationForm(Model model) {
@@ -44,6 +50,11 @@ public class customerController {
 		String emailbody = "Hi " + customer.getCustomerName()+ "," + "\n\n" + "You have become a prime member of goldenbites"
 				+ "\n" + "Thanks for the Registration" + "\n\n" + "Thanks & Regards\n\n" + "Team GoldenBites";
 		sendSimpleMessage(customer.getCustomerEmail(), "Goldenbites Customer Registration", emailbody);
+		
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		User user = new User(customer.getCustomerEmail(),passwordEncoder.encode("123"),"CUSTOMER");
+		userRepository.save(user);
+		
 		model.addAttribute("customer", new Customer());
 		return "Customer/customerRegistration";
 	}
