@@ -1,75 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Update User</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
-	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
-	crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Update User</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+          crossorigin="anonymous">
 </head>
 <body>
-	<center>
-		<h3>Order Summary</h3>
-	</center>
+<div style="text-align: center;">
+    <h3>Order Summary</h3>
+</div>
 
-	<div class="card-body" th:if="${not #lists.isEmpty(orderSummaryList)}">
-		<div class="table-responsive">
-			<table class="table table-bordered" id="dataTable" width="100%"
-				cellspacing="0">
-				<thead>
-					<tr>
-						<th>Item Name</th>
-						<th>Item Quantity</th>
-						<th>Item Total Tax1</th>
-						<th>Item Total Tax2</th>
-						<th>Item Total Price</th>
-						<th>Edit</th>
-						<th>Delete</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="info" th:each="orderSummary : ${orderSummaryList}">
-						<td th:text="${orderSummary.itemName}"></td>
-						<td th:text="${orderSummary.itemQuantity}"></td>
-						<td th:text="${orderSummary.itemTotalTax1}"></td>
-						<td th:text="${orderSummary.itemTotalTax2}"></td>
-						<td th:text="${orderSummary.itemTotalPrice}"></td>
-						<td><a
-							th:href="@{/home/itemsListForPlaceOrder/orderSummary/edit/{id}(id=${orderSummary.orderSummaryId})}">Edit</a></td>
-						<td><a
-							th:href="@{/home/itemsListForPlaceOrder/orderSummary/delete/{id}(id=${orderSummary.orderSummaryId})}">Delete</a></td>
-					</tr>
+<div class="card-body" th:if="${not #lists.isEmpty(orderSummaryList)}">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%"
+               cellspacing="0">
+            <thead>
+            <tr>
+                <th>Item Name</th>
+                <th>Item Quantity</th>
+                <th>Item Total Tax1</th>
+                <th>Item Total Tax2</th>
+                <th>Item Total Price</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="info" th:each="orderSummary : ${orderSummaryList}">
+                <td th:text="${orderSummary.itemName}"></td>
+                <td th:text="${orderSummary.itemQuantity}"></td>
+                <td th:text="${orderSummary.itemTotalTax1}"></td>
+                <td th:text="${orderSummary.itemTotalTax2}"></td>
+                <td th:text="${orderSummary.itemTotalPrice}"></td>
+                <td><a
+                        th:href="@{/home/itemsListForPlaceOrder/orderSummary/edit/{id}(id=${orderSummary.orderSummaryId})}">Edit</a>
+                </td>
+                <td><a
+                        th:href="@{/home/itemsListForPlaceOrder/orderSummary/delete/{id}(id=${orderSummary.orderSummaryId})}">Delete</a>
+                </td>
+            </tr>
 
-				</tbody>
-			</table>
-			<div>
-				Total Tax :
-				<p th:text="${order.orderTaxTotal}"></p>
-				Total (Tax exclusive) :
-				<p th:text="${order.orderTotal}"></p>
-				Final Total (Tax inclusive) :
-				<p th:text="${order.orderFinalTotal}"></p>
-			</div>
-			
-			  <a th:href="@{/home/itemsListForPlaceOrder/orderSummary/customerSelection/{id}(id=${order.orderId})}" class="btn btn-primary" type="button">Customer Selection</a>
-			  <a href="/itemsListForPlaceOrder" class="btn btn-secondary" type="button">Back</a>
-		</div>
-	</div>
+            </tbody>
+        </table>
+        <div>
+            Total Tax :
+            <p th:text="${order.orderTaxTotal}"></p>
+            Total (Tax exclusive) :
+            <p th:text="${order.orderTotal}"></p>
+            Final Total (Tax inclusive) :
+            <p th:text="${order.orderFinalTotal}"></p>
+        </div>
 
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.bundle.min.js"></script>
-	<script src="js/jquery.easing.min.js"></script>
-	<script src="js/jquery.dataTables.js"></script>
-	<script src="js/dataTables.bootstrap4.js"></script>
-	<script src="js/datatables-demo.js"></script>
-	<script src="js/rc-pos.min.js"></script>
+        <a th:href="@{/home/itemsListForPlaceOrder/orderSummary/customerSelection/{id}(id=${order.orderId})}"
+           class="btn btn-primary" type="button">Customer Selection</a>
+    </div>
+</div>
+
+<div class="card-body" th:if="${#lists.isEmpty(orderSummaryList)}">
+    <p>Order summary is empty.</p>
+    <p>Please go back to the home page</p>
+</div>
+<a href="/home" class="btn btn-secondary" type="button">Home</a>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery.easing.min.js"></script>
+<script src="js/jquery.dataTables.js"></script>
+<script src="js/dataTables.bootstrap4.js"></script>
+<script src="js/datatables-demo.js"></script>
+<script src="js/rc-pos.min.js"></script>
 </body>
 </html>
 

@@ -1,8 +1,6 @@
 package com.goldenbites.pos.controller;
 
-import com.goldenbites.pos.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;

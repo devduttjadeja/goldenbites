@@ -7,7 +7,6 @@ import com.goldenbites.pos.model.Item;
 public interface ItemRepository extends MongoRepository<Item, String> {
 
 	Item findByItemId(String id);
-
 	Item findByItemName(String itemName);
 
 }

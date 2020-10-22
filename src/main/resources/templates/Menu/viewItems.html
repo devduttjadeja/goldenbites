@@ -48,12 +48,13 @@
 						<td th:text="${item.itemTax2}"></td>
 						<td th:text="${item.itemTaxTotal}"></td>
 						<td th:text="${item.itemCreateOrUpdateDate}"></td>
-						<td><a th:href="@{/home/menuHome/viewItems/edit/{id}(id=${item.itemId})}">Edit</a></td>
-						<td><a th:href="@{/home/menuHome/viewItems/delete/{id}(id=${item.itemId})}">Delete</a></td>
+						<td><a th:href="@{/home/viewItems/edit/{id}(id=${item.itemId})}">Edit</a></td>
+						<td><a th:href="@{/home/viewItems/delete/{id}(id=${item.itemId})}">Delete</a></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
+		<a href="/home/viewItems/addItem">Add New Item</a>
 	</div>
 
 	<script src="js/jquery.min.js"></script>

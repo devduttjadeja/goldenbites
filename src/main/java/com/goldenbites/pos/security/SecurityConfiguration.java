@@ -15,54 +15,47 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	UserPrincipalDetailsService userPrincipalDetailsService;
+    @Autowired
+    UserPrincipalDetailsService userPrincipalDetailsService;
 
-	public SecurityConfiguration(UserPrincipalDetailsService userPrincipalDetailsService){
-		this.userPrincipalDetailsService = userPrincipalDetailsService;
-	}
+    public SecurityConfiguration(UserPrincipalDetailsService userPrincipalDetailsService) {
+        this.userPrincipalDetailsService = userPrincipalDetailsService;
+    }
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth){
-		auth.authenticationProvider(authenticationProvider());
-//			.inMemoryAuthentication().withUser("admin").password(passwordEncoder().encode("password")).roles("ADMIN")
-//			.and().withUser("user").password(passwordEncoder().encode("password")).roles("USER");
-	}
-	
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		
-		http
-				.authorizeRequests()
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) {
+        auth.authenticationProvider(authenticationProvider());
+    }
 
-//				.antMatchers("/login.html").permitAll()
-				.antMatchers("/index.html").permitAll()
-				.antMatchers("/home/*").authenticated()
-//				.antMatchers("/itemsListForPlaceOrder").authenticated()
-//				.antMatchers("/home").authenticated()
-//				.antMatchers("/viewOrders").hasRole("USER")
-				.and()
-				.formLogin()
-				.loginPage("/login").permitAll()
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+        http
+                .authorizeRequests()
+                .antMatchers("/index.html").permitAll()
+                .antMatchers("/home/*").authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login").permitAll()
                 .usernameParameter("userName")
                 .passwordParameter("userPassword")
                 .defaultSuccessUrl("/home")
-				.and()
-				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
-	}
+                .and()
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
+    }
 
-	@Bean
-	DaoAuthenticationProvider authenticationProvider(){
-		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-		daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-		daoAuthenticationProvider.setUserDetailsService(this.userPrincipalDetailsService);
-		return daoAuthenticationProvider;
-	}
+    @Bean
+    DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        daoAuthenticationProvider.setUserDetailsService(this.userPrincipalDetailsService);
+        return daoAuthenticationProvider;
+    }
 
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
