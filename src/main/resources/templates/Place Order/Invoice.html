@@ -43,21 +43,31 @@
 			<tr class="heading">
 				<th>Item Name</th>
 				<th>Item Quantity</th>
-				<th>Tax1</th>
-				<th>Tax2</th>
+<!--  				<th>Tax1</th>  -->
+<!-- 				<th>Tax2</th> -->
 				<th>Price</th>
 			</tr>
 
 			<tr class="details" th:each="orderSummary : ${orderSummaryList}">
 				<td th:text="${orderSummary.itemName}"></td>
 				<td th:text="${orderSummary.itemQuantity}"></td>
-				<td th:text="${orderSummary.itemTotalTax1}"></td>
-				<td th:text="${orderSummary.itemTotalTax2}"></td>
+<!-- <td th:text="${orderSummary.itemTotalTax1}"></td> -->				
+<!--				<td th:text="${orderSummary.itemTotalTax2}"></td>-->	
 				<td th:text="${orderSummary.itemTotalPrice}"></td>
 			</tr>
 		</table>
 		<div class="card-body">
 			<table>
+			<tr>
+					<td>Total Tax1: <span th:text="${order.orderTax1}"></span>
+					</td>
+
+				</tr>
+				<tr>
+					<td>Total Tax2: <span th:text="${order.orderTax2}"></span>
+					</td>
+
+				</tr>
 				<tr>
 					<td>Total Tax: <span th:text="${order.orderTaxTotal}"></span>
 					</td>

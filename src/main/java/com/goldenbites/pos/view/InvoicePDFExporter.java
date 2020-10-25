@@ -42,16 +42,15 @@ public class InvoicePDFExporter {
 		font.setSize(10);
 
 		cell.setPhrase(new Phrase("Item Name", font));
-
 		table.addCell(cell);
 
 		cell.setPhrase(new Phrase("Item Quantity", font));
 		table.addCell(cell);
 
-		cell.setPhrase(new Phrase("Tax1", font));
-		table.addCell(cell);
-		cell.setPhrase(new Phrase("Tax2", font));
-		table.addCell(cell);
+		//cell.setPhrase(new Phrase("Tax1", font));
+		//table.addCell(cell);
+		//cell.setPhrase(new Phrase("Tax2", font));
+		//table.addCell(cell);
 		cell.setPhrase(new Phrase("Price", font));
 		table.addCell(cell);
 	}
@@ -60,8 +59,8 @@ public class InvoicePDFExporter {
 		for (OrderSummary orderSummary : orderSummaryList) {
 			table.addCell(orderSummary.getItemName());
 			table.addCell(String.valueOf(orderSummary.getItemQuantity()));
-			table.addCell(String.valueOf(orderSummary.getItemTotalTax1()));
-			table.addCell(String.valueOf(orderSummary.getItemTotalTax2()));
+			//table.addCell(String.valueOf(orderSummary.getItemTotalTax1()));
+			//table.addCell(String.valueOf(orderSummary.getItemTotalTax2()));
 			table.addCell(String.valueOf((orderSummary.getItemTotalPrice())));
 		}
 
@@ -89,9 +88,9 @@ public class InvoicePDFExporter {
 
 		document.add(header);
 
-		PdfPTable table = new PdfPTable(5);
+		PdfPTable table = new PdfPTable(3);
 		table.setWidthPercentage(100f);
-		table.setWidths(new float[] { 3.5f, 1.5f, 1.5f, 1.5f, 1.5f });
+		table.setWidths(new float[] { 3.5f, 1.5f, 1.5f});
 		table.setSpacingBefore(10);
 
 		writeTableHeader(table);
@@ -99,7 +98,8 @@ public class InvoicePDFExporter {
 
 		document.add(table);
 
-		String fstr = "Total Tax::" + order.getOrderTaxTotal() + "\n" + "Total (Tax exclusive) :" + order.getOrderTotal() + "\n" + "Final Total (Tax inclusive) :"
+		String fstr = "Total Tax1:" + order.getOrderTax1() + "\n"+"Total Tax2:" + order.getOrderTax2() + "\n"+
+		"Total Tax:" + order.getOrderTaxTotal() + "\n" + "Total (Tax exclusive) :" + order.getOrderTotal() + "\n" + "Final Total (Tax inclusive) :"
 				+ order.getOrderFinalTotal();
 
 		Paragraph footer = new Paragraph(fstr, font);
