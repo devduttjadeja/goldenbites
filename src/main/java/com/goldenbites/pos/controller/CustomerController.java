@@ -22,7 +22,7 @@ import com.goldenbites.pos.model.Customer;
 import com.goldenbites.pos.model.User;
 
 @Controller
-public class customerController {
+public class CustomerController {
 
     @Autowired
     CustomerRepository customerRepository;

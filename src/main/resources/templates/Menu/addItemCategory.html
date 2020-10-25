@@ -15,7 +15,7 @@
 
 <body id="page-top">
 
-	<form th:action="@{/home/addItemCategory}" th:object="${itemCategory}" method="post">
+	<form th:action="@{/home/viewItemCategory/addItemCategory}" th:object="${itemCategory}" method="post">
 		<!-- Add Product Modal-->
 
 		<div class="modal-dialog modal-lg" role="document">
@@ -36,8 +36,8 @@
 						
 
 						<div class="modal-footer">
-							<a href="/home" class="btn btn-secondary" type="button">Back</a>
 							<input type="submit" class="btn btn-primary" value="Add Category">
+							<a href="/home" class="btn btn-success" type="button">Home</a>
 						</div>
 				</form>
 			</div>

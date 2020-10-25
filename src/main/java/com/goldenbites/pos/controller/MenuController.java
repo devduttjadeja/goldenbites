@@ -3,6 +3,7 @@ package com.goldenbites.pos.controller;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.goldenbites.pos.dao.ItemCategoryRepository;
 import org.decimal4j.util.DoubleRounder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,8 @@ public class MenuController {
 
     @Autowired
     ItemRepository itemRepository;
+    @Autowired
+    ItemCategoryRepository itemCategoryRepository;
 
     final Double tax1 = 5.0;
     final Double tax2 = 9.75;
@@ -32,6 +35,7 @@ public class MenuController {
     @GetMapping("/home/viewItems/addItem")
     public String displayItemForm(Model model) {
         model.addAttribute("item", new Item());
+        model.addAttribute("categories", itemCategoryRepository.findAll());
         return "Menu/addItem";
     }
 
@@ -40,6 +44,7 @@ public class MenuController {
         if(itemRepository.findByItemName(item.getItemName()) != null){
             model.addAttribute("message", "Item already exist.");
             model.addAttribute("item", new Item());
+            model.addAttribute("categories", itemCategoryRepository.findAll());
             return "Menu/addItem";
         }
 //

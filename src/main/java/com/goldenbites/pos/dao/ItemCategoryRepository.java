@@ -7,4 +7,5 @@ import com.goldenbites.pos.model.ItemCategory;
 	
 public interface ItemCategoryRepository extends MongoRepository<ItemCategory, String> {
 
+    ItemCategory findByItemCategoryId(String id);
 }

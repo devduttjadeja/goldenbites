@@ -43,14 +43,13 @@
                             names. Make sure its unique.</small>
                     </div>
                     <div class="form-group">
-                        <label>Item Category</label> <select
-                            class="form-control text-primary" th:field="*{itemCategory}"
-                            required>
-                        <option th:value="default">Please select a Item
-                            Category
-                        </option>
-                        <option th:value="beverage">beverage</option>
-                        <option th:value="food">food</option>
+                        <label>Item Category</label>
+                        <select class="form-control text-primary" th:field="*{itemCategory}" required>
+<!--                        <option th:value="default">Please select a Item Category </option>-->
+<!--                        <option th:value="beverage">beverage</option>-->
+<!--                        <option th:value="food">food</option>-->
+                            <option th:value="default">Please select</option>
+                            <option th:each="category : ${categories}" th:value="${category.itemCategoryName}" th:text="${category.itemCategoryName}"></option>
 
                     </select>
 
@@ -73,9 +72,10 @@
 
                     </div>
                     <div class="modal-footer">
-                        <a href="/home" class="btn btn-secondary" type="button">Home</a>
                         <input type="submit" class="btn btn-primary" value="Add Product">
+                        <a href="/home" class="btn btn-success" type="button">Home</a>
                     </div>
+                </div>
             </form>
         </div>
     </div>

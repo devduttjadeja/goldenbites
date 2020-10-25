@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,30 +18,28 @@
 <body id="page-top">
 
 <center>
-    <h3>View Users</h3>
+    <h3>View Menu</h3>
 </center>
-<div class="card-body" th:if="${not #lists.isEmpty(users)}">
+<div class="card-body" th:if="${not #lists.isEmpty(categories)}">
     <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
             <tr>
-                <th>User Name</th>
-                <th>User Role</th>
+                <th>Item Category</th>
                 <th>Edit</th>
                 <th>Delete</th>
-
             </tr>
             </thead>
             <tbody>
-            <tr class = "info" th:each="user : ${users}">
-                <td th:text="${user.userName}"></td>
-                <td th:text="${user.userRole}"></td>
-                <td><a th:href="@{/home/viewUser/userEdit/{id}(id=${user.userId})}">Edit</a></td>
-                <td><a th:href="@{/home/viewUser/userDelete/{id}(id=${user.userId})}">Delete</a></td>
+            <tr class="info" th:each="category : ${categories}">
+                <td th:text="${category.itemCategoryName}"></td>
+                <td><a th:href="@{/home/viewItemCategory/edit/{id}(id=${category.itemCategoryId})}">Edit</a></td>
+                <td><a th:href="@{/home/viewItemCategory/delete/{id}(id=${category.itemCategoryId})}">Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
+    <a href="/home/viewItemCategory/addItemCategory" class="btn btn-info" type="button">Add New Item Category</a>
     <a href="/home" class="btn btn-success" type="button">Home</a>
 </div>
 
