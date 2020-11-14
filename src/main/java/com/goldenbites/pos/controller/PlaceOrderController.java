@@ -228,9 +228,14 @@ public class PlaceOrderController {
     public String customerSelectionAddToOrder(@PathVariable("orderId") String orderId, @RequestParam(value = "customerCode") String customerCode,
                                               Model model) {
         Order order = orderRepository.findByOrderId(orderId);
-        order.setOrderCustomerCode(customerCode);
-        orderRepository.save(order);
-        return "Place Order/PaymentOptions";
+        Customer customer = customerRepository.findByCustomerCode(customerCode);
+        if(customer != null){
+            order.setOrderCustomerCode(customerCode);
+            orderRepository.save(order);
+            return "Place Order/PaymentOptions";
+        }else{
+            return "redirect:/home/itemsListForPlaceOrder/orderSummary/customerSelection/"+orderId;
+        }
     }
 
     @GetMapping("/home/itemsListForPlaceOrder/orderSummary/invoice")
