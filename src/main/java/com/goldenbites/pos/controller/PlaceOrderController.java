@@ -52,7 +52,20 @@ public class PlaceOrderController {
         return "Place Order/categories";
     }
 
-    @GetMapping("/home/itemsListForPlaceOrder")
+    /*@GetMapping("/home/itemsListForPlaceOrder")
+    public String itemDisplay(Model model) {
+        OrderCreation orderCreation = new OrderCreation();
+
+        for (int i = 0; i < itemRepository.findAll().size(); i++) {
+            orderCreation.addOrderSummary(new OrderSummary());
+        }
+
+        model.addAttribute("orderCreation", orderCreation);
+        model.addAttribute("items", itemRepository.findAll());
+        return "Place Order/itemsListForPlaceOrder";
+    }*/
+
+    @GetMapping("/home/cart")
     public String itemDisplay(Model model) {
         OrderCreation orderCreation = new OrderCreation();
 
