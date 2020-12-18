@@ -59,26 +59,42 @@
 
 
 
-          <div class="row" th:each="item : ${items}">
-            <div class="input-field col s6">
-<!--              <input type="text" placeholder="Add Item" id="item-name">-->
-              <label id="item-name">${item.itemName}</label>
-            </div>
-            <div class="input-field col s6">
-                <input type="number" placeholder="Add Quantity" id="item-quantity">
-                <label for="item-quantity">Quantity</label>
-            </div>
-            <button class="add-btn btn blue darken-3"><i class="fa fa-plus"></i> Add Meal</button>         
-            <button class="update-btn btn orange"><i class="fa fa-pencil-square-o"></i> Update Meal</button>
-            <button class="delete-btn btn red"><i class="fa fa-remove"></i> Delete Meal</button>
-            <button class="back-btn btn grey pull-right"><i class="fa fa-chevron-circle-left"></i> Back</button>
+          <div class="row">
+
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                  <tr>
+                      <th>Item Name</th>
+                      <th>Item Quantity</th>
+                      <th>Add Meal</th>
+                      <th>Update</th>
+                      <th>Delete</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr class="info" th:each="item : ${items}">
+                      <div class="input-field col s6">
+                          <td id="item-name" th:text="${item.itemName}"></td>
+                      </div>
+
+                      <td><input type="number" placeholder="Add Quantity" id="item-quantity">
+                          <label for="item-quantity">Quantity</label>
+                      </td>
+
+                      <td><button class="add-btn btn blue darken-3"><i class="fa fa-plus"></i> Add Meal</button></td>
+                      <td><button class="update-btn btn orange"><i class="fa fa-pencil-square-o"></i> Update Meal</button></td>
+                      <td><button class="delete-btn btn red"><i class="fa fa-remove"></i> Delete Meal</button></td>
+
+                  </tr>
+                  </tbody>
+              </table>
           </div>
         </form>
       </div>
     </div>
 
     <!-- Calorie Count -->
-    <h3 class="center-align">Total Calories: <span class="total-calories">0</span></h3>
+<!--    <h3 class="center-align">Total Amount: <span class="total-amount">0</span></h3>-->
 
     <!-- Item List -->
     <ul id="item-list" class="collection">

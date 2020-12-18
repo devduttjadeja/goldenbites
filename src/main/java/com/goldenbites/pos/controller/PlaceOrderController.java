@@ -75,7 +75,7 @@ public class PlaceOrderController {
 
         model.addAttribute("orderCreation", orderCreation);
         model.addAttribute("items", itemRepository.findAll());
-        return "Place Order/itemsListForPlaceOrder";
+        return "Place Order/cart";
     }
 
     @PostMapping("/home/itemsListForPlaceOrder/add")
