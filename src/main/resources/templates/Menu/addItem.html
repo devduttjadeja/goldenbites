@@ -39,15 +39,11 @@
                                                                class="form-control" name="" value=""
                                                                placeholder="Enter Item Name" th:field="*{itemName}"
                                                                required>
-                        <small class="text-muted">Be more specific with Item
-                            names. Make sure its unique.</small>
+                        
                     </div>
                     <div class="form-group">
                         <label>Item Category</label>
                         <select class="form-control text-primary" th:field="*{itemCategory}" required>
-<!--                        <option th:value="default">Please select a Item Category </option>-->
-<!--                        <option th:value="beverage">beverage</option>-->
-<!--                        <option th:value="food">food</option>-->
                             <option th:value="default">Please select</option>
                             <option th:each="category : ${categories}" th:value="${category.itemCategoryName}" th:text="${category.itemCategoryName}"></option>
 
@@ -55,7 +51,7 @@
 
                     </div>
                     <div class="form-group">
-                        <label for="">Item Price</label> <input type="text"
+                        <label for="">Item Price</label> <input type="number" step="0.01"
                                                                 class="form-control" name="" value=""
                                                                 placeholder="Enter Item Price" th:field="*{itemPrice}"
                                                                 oninput="check(this)" required>

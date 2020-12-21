@@ -77,22 +77,13 @@ public class PlaceOrderController {
 
 		String text = null;
 
-//		JSONArray array = null;
-		
 		try {
 			text = URLDecoder.decode(test, "UTF-8");
-//			array = new JSONArray(text);
-			System.out.println(text);
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-//		System.out.println(test);
-
 		orderText = text;
-	}
-	
+	}	
 	
 	@PostMapping("/home/itemsListForPlaceOrder/add")
 	public String addItemsForPlaceOrder(@ModelAttribute OrderCreation orderCreation, Model model) {
@@ -100,17 +91,10 @@ public class PlaceOrderController {
 		if(orderText == null) {
 			return "redirect:/home/cart";
 		}
-		
-		
-		
-		ArrayList<OrderSummary> list = orderCreation.getOrderSummaryList();
+	
 		double orderTotal = 0, orderTax1 = 0, orderTax2 = 0, orderTaxTotal = 0, orderFinalTotal = 0;
-
 		double itemTotalPrice = 0, itemTotalTax1 = 0, itemTotalTax2 = 0;
-
-
 		ArrayList<OrderSummary> orderSummaries = new ArrayList<OrderSummary>();
-		
 		
 		JSONArray array = new JSONArray(orderText);
 		orderText = null;
@@ -165,11 +149,8 @@ public class PlaceOrderController {
 			orderSummary.setOrderId(orderId);
 			orderSummaryRepository.save(orderSummary);
 		}
-
-		
+	
 		ArrayList<OrderSummary> orderSummaryList = orderSummaryRepository.findAllByOrderId(orderId);
-
-		
 		model.addAttribute("orderSummaryList", orderSummaryList);
 		model.addAttribute("order", order);
 
@@ -228,7 +209,7 @@ public class PlaceOrderController {
 	 * 
 	 * return "Place Order/orderSummary"; }
 	 */
-	@GetMapping("/home/itemsListForPlaceOrder/orderSummary")
+	/*@GetMapping("/home/itemsListForPlaceOrder/orderSummary")
 	public String orderSummaryDisplay(Model model) {
 		// model.addAttribute("user", new User());
 		return "Place Order/orderSummary";
@@ -327,7 +308,7 @@ public class PlaceOrderController {
 		model.addAttribute("order", order);
 
 		return "Place Order/orderSummary";
-	}
+	}*/
 
 	@GetMapping("/home/itemsListForPlaceOrder/orderSummary/customerSelection/{id}")
 	public String customerSelectionDisplay(@PathVariable("id") String orderId, Model model) {

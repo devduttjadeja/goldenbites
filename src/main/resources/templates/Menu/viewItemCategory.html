@@ -18,7 +18,7 @@
 <body id="page-top">
 
 <center>
-    <h3>View Menu</h3>
+    <h3>Item Category</h3>
 </center>
 <div class="card-body" th:if="${not #lists.isEmpty(categories)}">
     <div class="table-responsive">
@@ -39,9 +39,9 @@
             </tbody>
         </table>
     </div>
-    <a href="/home/viewItemCategory/addItemCategory" class="btn btn-info" type="button">Add New Item Category</a>
-    <a href="/home" class="btn btn-success" type="button">Home</a>
 </div>
+<a href="/home/viewItemCategory/addItemCategory" class="btn btn-info" type="button">Add New Item Category</a>
+<a href="/home" class="btn btn-success" type="button">Home</a>
 
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>

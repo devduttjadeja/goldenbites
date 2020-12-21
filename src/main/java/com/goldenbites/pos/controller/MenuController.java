@@ -41,6 +41,8 @@ public class MenuController {
 
     @PostMapping("/home/viewItems/addItem")
     public String saveItem(@ModelAttribute Item item, Model model) {
+    	
+    	item.setItemName(item.getItemName().toLowerCase());
         if(itemRepository.findByItemName(item.getItemName()) != null){
             model.addAttribute("message", "Item already exist.");
             model.addAttribute("item", new Item());
@@ -52,6 +54,7 @@ public class MenuController {
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
         item.setItemCreateOrUpdateDate(now);
+        item.setItemName(item.getItemName().toLowerCase());
 
         double itemTax1 = 0;
         double itemTax2 = 0;
@@ -84,13 +87,23 @@ public class MenuController {
     public String showUpdateForm(@PathVariable("id") String id, Model model) {
         Item item = itemRepository.findByItemId(id);
         model.addAttribute("item", item);
+        model.addAttribute("categories", itemCategoryRepository.findAll());
         return "Menu/updateItem";
     }
 
-
+//    itemRepository.findByItemName(item.getItemName()) != null &&
+    
     @PostMapping("/home/viewItems/updateItem/{id}")
     public String updateItem(@PathVariable("id") String id, @ModelAttribute Item item,
                              BindingResult result, Model model) {
+    	
+    	item.setItemName(item.getItemName().toLowerCase());
+    	String name = itemRepository.findByItemId(id).getItemName();
+    	
+    	if(!item.getItemName().equals(name) && (itemRepository.findByItemName(item.getItemName()) != null)) {    		    		    			
+    		return "redirect:/home/viewItems/edit/"+id;    	
+    	}
+    	
         item.setItemId(id);
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();

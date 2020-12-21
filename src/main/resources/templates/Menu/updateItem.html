@@ -26,6 +26,7 @@
             <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title" id="exampleModalLabel">
                     <i class="fa fa-tag"></i> Update Item
+                    <p th:text="${message}"></p>
                 </h5>
             </div>
             <form class="">
@@ -35,18 +36,14 @@
                                                                class="form-control" name="" value=""
                                                                placeholder="Enter Item Name" th:field="*{itemName}"
                                                                required>
-                        <small class="text-muted">Be more specific with Item
-                            names. Make sure its unique.</small>
+                        
                     </div>
                     <div class="form-group">
                         <label>Item Category</label> <select
                             class="form-control text-primary" th:field="*{itemCategory}"
                             required>
-                        <option th:value="default">Please select a Item
-                            Category
-                        </option>
-                        <option th:value="beverage">beverage</option>
-                        <option th:value="food">food</option>
+                        <option th:value="default">Please select</option>
+                            <option th:each="category : ${categories}" th:value="${category.itemCategoryName}" th:text="${category.itemCategoryName}"></option>
 
                     </select>
 

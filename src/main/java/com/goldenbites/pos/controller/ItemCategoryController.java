@@ -37,29 +37,39 @@ public class ItemCategoryController {
 
 	@PostMapping("home/viewItemCategory/addItemCategory")
 	public String saveItemCategory(@ModelAttribute ItemCategory itemCategory, Model model) {
+		itemCategory.setItemCategoryName(itemCategory.getItemCategoryName().toLowerCase());
+		String categoryName = itemCategory.getItemCategoryName();
+		if(itemCategoryRepository.findByItemCategoryName(categoryName) != null) {
+			model.addAttribute("message", "Item Category already exist.");
+			model.addAttribute("itemCategory", new ItemCategory());
+			return "Menu/addItemCategory";
+		}
+		
 		Calendar calendar = Calendar.getInstance();
 		Date now = calendar.getTime();
 		itemCategory.setItemCategoryCreatedDate(now);
 		itemCategoryRepository.save(itemCategory);
-		return "redirect:/home";
+		return "redirect:/home/viewItemCategory";
 	}
 
 	@GetMapping("/home/viewItemCategory/delete/{id}")
-	public String deleteItem(@PathVariable("id") String id, Model model) {
+	public String deleteItemCategory(@PathVariable("id") String id, Model model) {
 		itemCategoryRepository.deleteById(id);
 		model.addAttribute("categories", itemCategoryRepository.findAll());
 		return "redirect:/home/viewItemCategory";
 	}
 
 	@GetMapping("/home/viewItemCategory/edit/{id}")
-	public String showUpdateForm(@PathVariable("id") String id, Model model) {
+	public String editItemCategory(@PathVariable("id") String id, Model model) {
 		ItemCategory itemCategory = itemCategoryRepository.findByItemCategoryId(id);
 		model.addAttribute("itemCategory", itemCategory);
 		return "Menu/updateItemCategory";
 	}
 
 	@PostMapping("/home/viewItemCategory/updateItemCategory/{id}")
-	public String updateItem(@PathVariable("id") String id, @ModelAttribute ItemCategory itemCategory, Model model) {
+	public String updateItemCategory(@PathVariable("id") String id, @ModelAttribute ItemCategory itemCategory, Model model) {
+		
+		itemCategory.setItemCategoryName(itemCategory.getItemCategoryName().toLowerCase());
 		itemCategory.setItemCategoryId(id);
 		itemCategoryRepository.save(itemCategory);
 		model.addAttribute("categories", itemCategoryRepository.findAll());

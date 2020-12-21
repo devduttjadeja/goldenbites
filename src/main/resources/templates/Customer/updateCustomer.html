@@ -45,19 +45,18 @@
 
 						</div>
 						<div class="form-group">
-							<label for="">Customer Phone</label> <input type="text"
-								class="form-control" name="" value=""
-								placeholder="Enter Customer Phone" th:field="*{customerPhone}"
-								required>
-						</div>
-
-						<div class="form-group">
 							<label for="">Customer Code</label> <input type="text"
 								class="form-control" name="" value=""
 								placeholder="Enter Customer Code" th:field="*{customerCode}"
 								required>
 						</div>
-
+						<div class="form-group">
+							<label for="">Customer Phone</label> <input type="tel"
+								class="form-control" name="" value=""
+								placeholder="Enter Customer Phone" th:field="*{customerPhone}"
+								pattern="^\d{10}$"
+								required>
+						</div>
 
 						<div class="modal-footer">
 							<input type="submit" class="btn btn-primary" value="Update">

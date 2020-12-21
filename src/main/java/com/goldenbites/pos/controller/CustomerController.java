@@ -42,6 +42,14 @@ public class CustomerController {
     @PostMapping("/home/registerCustomer")
     public String registerCustomer(@ModelAttribute Customer customer, Model model) {
 
+    	if(customerRepository.findByCustomerEmail(customer.getCustomerEmail()) != null || 
+    			customerRepository.findByCustomerCode(customer.getCustomerCode()) != null) {
+    		model.addAttribute("message", "Customer already exist.");
+    		model.addAttribute("customer", new Customer());
+            return "Customer/customerRegistration";
+
+    	}
+    	
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();
         customer.setCustomerCreatedDate(now);
@@ -56,7 +64,7 @@ public class CustomerController {
         userRepository.save(user);
 
         model.addAttribute("customer", new Customer());
-        return "Customer/customerRegistration";
+        return "redirect:/home/viewCustomer";
     }
 
     public void sendSimpleMessage(String to, String subject, String text) {

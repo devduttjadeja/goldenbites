@@ -27,6 +27,7 @@
             <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title" id="exampleModalLabel">
                     <i class="fa fa-tag"></i> Customer Registration
+                    <p th:text="${message}"></p>
                 </h5>
             </div>
             <form class="">
@@ -39,7 +40,7 @@
                                                                    required>
                     </div>
                     <div class="form-group">
-                        <label>Customer Email</label> <input type="text"
+                        <label>Customer Email</label> <input type="email"
                                                              class="form-control" name="" value=""
                                                              placeholder="Enter Customer Email"
                                                              th:field="*{customerEmail}"
@@ -56,10 +57,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="">Customer Phone</label> <input type="text"
+                        <label for="">Customer Phone</label> <input type="tel"
                                                                     class="form-control" name="" value=""
                                                                     placeholder="Enter Customer Phone"
                                                                     th:field="*{customerPhone}"
+                                                                    pattern="^\d{10}$"
                                                                     required>
                     </div>
 

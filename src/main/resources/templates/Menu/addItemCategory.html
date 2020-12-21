@@ -11,6 +11,14 @@
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
 <link href="css/styles.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
 </head>
 
 <body id="page-top">
@@ -21,15 +29,17 @@
 				<div class="modal-header bg-primary text-white">
 					<h5 class="modal-title" id="exampleModalLabel">
 						<i class="fa fa-tag"></i> Add New Item Category
+						<p th:text="${message}"></p>
 					</h5>
 				</div>
 				<form class="">
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="">Item Category Name</label> <input type="text"
+							<label for="">Item Category Name</label> 
+							<input type="text" id="item-category"
 								class="form-control" name="" value=""
-								placeholder="Enter Item Category Name" th:field="*{itemCategoryName}" required>
-							<small class="text-muted">Be more specific with Item Category names. Make sure its unique.</small>
+								placeholder="Enter Item Category Name" th:field="*{itemCategoryName}" 
+								required>
 						</div>
 						
 
@@ -40,10 +50,6 @@
 				</form>
 			</div>
 		</div>
-		<!-- Add Product Type-->
 	</form>
-
-
-
 </body>
-</html>
+</html> 
