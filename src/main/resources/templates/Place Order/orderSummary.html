@@ -27,26 +27,15 @@
             <tr>
                 <th>Item Name</th>
                 <th>Item Quantity</th>
-<!--                 <th>Item Total Tax1</th> --> 
-<!--                  <th>Item Total Tax2</th> --> 
                 <th>Item Total Price</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                
             </tr>
             </thead>
             <tbody>
             <tr class="info" th:each="orderSummary : ${orderSummaryList}">
                 <td th:text="${orderSummary.itemName}"></td>
                 <td th:text="${orderSummary.itemQuantity}"></td>
-<!--                <td th:text="${orderSummary.itemTotalTax1}"></td> -->
- <!--               <td th:text="${orderSummary.itemTotalTax2}"></td> -->
                 <td th:text="${orderSummary.itemTotalPrice}"></td>
-                <td><a
-                        th:href="@{/home/itemsListForPlaceOrder/orderSummary/edit/{id}(id=${orderSummary.orderSummaryId})}">Edit</a>
-                </td>
-                <td><a
-                        th:href="@{/home/itemsListForPlaceOrder/orderSummary/delete/{id}(id=${orderSummary.orderSummaryId})}">Delete</a>
-                </td>
             </tr>
 
             </tbody>

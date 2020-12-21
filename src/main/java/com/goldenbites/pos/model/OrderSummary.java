@@ -33,6 +33,10 @@ public class OrderSummary {
 	@Field(name = "item_totaltax1")
 	private Double itemTotalTax1;
 	
+	@Field(name = "item_totaltax2")
+	private Double itemTotalTax2;
+	
+	
 	public String getItemName() {
 		return itemName;
 	}
@@ -41,9 +45,6 @@ public class OrderSummary {
 		this.itemName = itemName;
 	}
 
-	@Field(name = "item_totaltax2")
-	private Double itemTotalTax2;
-	
 	public Double getItemTotalPrice() {
 		return itemTotalPrice;
 	}
