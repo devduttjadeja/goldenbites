@@ -26,7 +26,6 @@
 	<nav>
 		<div class="nav-wrapper blue">
 			<div class="container">
-				<a href="#" class="brand-logo center">Tracalorie</a>
 				<ul class="right">
 					<li><a href="#" class="clear-btn btn blue lighten-3">Clear
 							All</a></li>
@@ -41,9 +40,9 @@
 		<!-- Form Card -->
 		<div class="card">
 			<div class="card-content">
-				<span class="card-title">Add Meal / Food Item</span>
-				<form class="col" th:action="@{/home/itemsListForPlaceOrder/add}"
-					th:object="${orderCreation}" method="post">
+				<span class="card-title">Add Food Items</span>
+				<form class="col" th:action="@{/home/itemsListForPlaceOrder/add}" method="post">
+
 
 					<div class="row">
 
@@ -53,9 +52,9 @@
 								<tr>
 									<th>Item Name</th>
 									<th>Item Quantity</th>
-									<th>Add Meal</th>
+									<!-- <th>Add Meal</th>
 									<th>Update</th>
-									<th>Delete</th>
+									<th>Delete</th> -->
 								</tr>
 							</thead>
 							<tbody>
@@ -71,34 +70,27 @@
 									</div>
 									<td><select id="item-quantity" name="week_scroll">
 											<option th:value="0">Please select</option>
-											<option th:each="n : ${#numbers.sequence(1,10)}"
+											<option th:each="n : ${#numbers.sequence(1,20)}"
 												th:value="${n}" th:text="${n}" />
 									</select></td>
 
-									<td><button class="add-btn btn blue darken-3">
-											<i class="fa fa-plus"></i> Add Meal
-										</button></td>
-									<td><button class="update-btn btn orange">
-											<i class="fa fa-pencil-square-o"></i> Update Meal
-										</button></td>
-									<td><button class="delete-btn btn red">
-											<i class="fa fa-remove"></i> Delete Meal
-										</button></td>
-									<td><button class="back-btn btn grey pull-right">
-											<i class="fa fa-chevron-circle-left"> </i> Back
-										</button></td>
+							<button class="add-btn btn blue darken-3"><i class="fa fa-plus"></i> Add Meal</button>
+							<button class="update-btn btn orange"><i class="fa fa-pencil-square-o"></i> Update Meal</button>
+							<button class="delete-btn btn red"><i class="fa fa-remove"></i> Delete Meal</button>
+							<button class="back-btn btn grey pull-right"><i class="fa fa-chevron-circle-left"> </i> Back</button>
+								
 
 								</tr>
 							</tbody>
 						</table>
 					</div>
-					<input type="submit" class="btn btn-primary" value="Next">
+					<button class="submit-btn btn red btn-primary"><i class="fa fa-submit"></i> Go to Summary </button>
+					<!-- <input type="submit" class="btn btn-primary" value="Go to Summary"> -->
+					<a href="/home" class="btn btn-success" type="button">Home</a>
 				</form>
 			</div>
 		</div>
-		<button class="submit-btn btn red">
-			<i class="fa fa-submit"></i> submit
-		</button>
+		
 
 
 		<!-- Calorie Count -->
@@ -309,7 +301,7 @@
 
 	      items.forEach(function(item){
 	        html += `<li class="collection-item" id="item-${item.id}">
-	        <strong>${item.name}: </strong> <em>${item.quantity} quantity</em>
+	        <strong>${item.name}: </strong> <em>${item.quantity}</em>
 	        <a href="#" class="secondary-content">
 	          <i class="edit-item fa fa-pencil"></i>
 	        </a>
@@ -335,7 +327,7 @@
 	      // Add ID
 	      li.id = `item-${item.id}`;
 	      // Add HTML
-	      li.innerHTML = `<strong>${item.name}: </strong> <em>${item.quantity} quantity</em>
+	      li.innerHTML = `<strong>${item.name}: </strong> <em>${item.quantity}</em>
 	      <a href="#" class="secondary-content">
 	        <i class="edit-item fa fa-pencil"></i>
 	      </a>`;
@@ -352,7 +344,7 @@
 	        const itemID = listItem.getAttribute('id');
 
 	        if(itemID === `item-${item.id}`){
-	          document.querySelector(`#${itemID}`).innerHTML = `<strong>${item.name}: </strong> <em>${item.quantity} quantity</em>
+	          document.querySelector(`#${itemID}`).innerHTML = `<strong>${item.name}: </strong> <em>${item.quantity}</em>
 	          <a href="#" class="secondary-content">
 	            <i class="edit-item fa fa-pencil"></i>
 	          </a>`;

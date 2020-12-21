@@ -96,6 +96,13 @@ public class PlaceOrderController {
 	
 	@PostMapping("/home/itemsListForPlaceOrder/add")
 	public String addItemsForPlaceOrder(@ModelAttribute OrderCreation orderCreation, Model model) {
+		
+		if(orderText == null) {
+			return "redirect:/home/cart";
+		}
+		
+		
+		
 		ArrayList<OrderSummary> list = orderCreation.getOrderSummaryList();
 		double orderTotal = 0, orderTax1 = 0, orderTax2 = 0, orderTaxTotal = 0, orderFinalTotal = 0;
 
@@ -106,6 +113,7 @@ public class PlaceOrderController {
 		
 		
 		JSONArray array = new JSONArray(orderText);
+		orderText = null;
 		
 		for (int i = 0; i < array.length(); i++) {
 			JSONObject object = array.getJSONObject(i);
