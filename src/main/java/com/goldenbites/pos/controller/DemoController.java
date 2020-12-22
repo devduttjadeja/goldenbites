@@ -18,9 +18,4 @@ public class DemoController {
 		return "login";
 	}
 	
-	@RequestMapping("/registerStudent")
-	public String studentRegistration() {
-		return "registerStudent";
-	}
-	
 }

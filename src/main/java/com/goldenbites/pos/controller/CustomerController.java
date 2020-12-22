@@ -42,6 +42,9 @@ public class CustomerController {
     @PostMapping("/home/registerCustomer")
     public String registerCustomer(@ModelAttribute Customer customer, Model model) {
 
+    	customer.setCustomerEmail(customer.getCustomerEmail().toLowerCase());
+    	customer.setCustomerName(customer.getCustomerName().toLowerCase());
+    	
     	if(customerRepository.findByCustomerEmail(customer.getCustomerEmail()) != null || 
     			customerRepository.findByCustomerCode(customer.getCustomerCode()) != null) {
     		model.addAttribute("message", "Customer already exist.");
@@ -62,7 +65,7 @@ public class CustomerController {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         User user = new User(customer.getCustomerEmail(), passwordEncoder.encode("123"), "CUSTOMER");
         userRepository.save(user);
-
+        
         model.addAttribute("customer", new Customer());
         return "redirect:/home/viewCustomer";
     }
@@ -85,6 +88,7 @@ public class CustomerController {
 
     @GetMapping("/home/viewCustomer/customerDelete/{id}")
     public String deleteCustomer(@PathVariable("id") String id, Model model) {
+    	userRepository.deleteByUserName(customerRepository.findByCustomerId(id).getCustomerEmail());
         customerRepository.deleteById(id);
         model.addAttribute("customers", customerRepository.findAll());
         return "redirect:/home/viewCustomer";
@@ -101,6 +105,32 @@ public class CustomerController {
     @PostMapping("/home/viewCustomer/updateCustomer/{id}")
     public String updateCustomer(@PathVariable("id") String id, @ModelAttribute Customer customer, BindingResult result,
                                  Model model) {
+    	
+    	customer.setCustomerName(customer.getCustomerName().toLowerCase());
+    	customer.setCustomerEmail(customer.getCustomerEmail().toLowerCase());
+    	
+    	String email = customerRepository.findByCustomerId(id).getCustomerEmail();
+    	
+    	if(!customer.getCustomerEmail().equals(email) && (customerRepository.findByCustomerEmail(customer.getCustomerEmail()) != null)) {    		    		    			
+    		return "redirect:/home/viewCustomer/customerEdit/"+id; 	
+    	}
+    	
+    	User user = userRepository.findByUserName(customer.getCustomerEmail());
+    	
+    	if(user == null) {
+    		
+    		String emailbody = "Hi " + customer.getCustomerName() + "," + "\n\n" + "You have become a prime member of goldenbites"
+                    + "\n" + "Thanks for the Registration" + "\n\n" + "Thanks & Regards\n\n" + "Team GoldenBites";
+            sendSimpleMessage(customer.getCustomerEmail(), "Goldenbites Customer Registration", emailbody);
+
+    		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            User newUser = new User(customer.getCustomerEmail(), passwordEncoder.encode("123"), "CUSTOMER");
+            userRepository.save(newUser);
+            userRepository.deleteByUserName(email);
+    	}else {
+    		user.setUserName(customer.getCustomerEmail());
+    	}
+    	
         customer.setCustomerId(id);
         Calendar calendar = Calendar.getInstance();
         Date now = calendar.getTime();

@@ -54,11 +54,6 @@ public class PlaceOrderController {
 		return "home";
 	}
 
-	@GetMapping("/categories")
-	public String categoryDisplay(Model model) {
-		return "Place Order/categories";
-	}
-
 	@GetMapping("/home/cart")
 	public String itemDisplay(Model model) {
 		OrderCreation orderCreation = new OrderCreation();
@@ -76,28 +71,31 @@ public class PlaceOrderController {
 	public void itemShow(@RequestBody String test, Model model) {
 
 		String text = null;
-
+		
 		try {
 			text = URLDecoder.decode(test, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		orderText = text;
+		
 	}	
 	
 	@PostMapping("/home/itemsListForPlaceOrder/add")
-	public String addItemsForPlaceOrder(@ModelAttribute OrderCreation orderCreation, Model model) {
+	public String addItemsForPlaceOrder(@ModelAttribute OrderCreation orderCreation, Model model) throws InterruptedException {
+		/*
+		 * Thread t = new Thread(); t.sleep(10);
+		 */
+		JSONArray array = new JSONArray(orderText);
+		orderText = null;
 		
-		if(orderText == null) {
+		if(array.length() == 0) {
 			return "redirect:/home/cart";
 		}
 	
 		double orderTotal = 0, orderTax1 = 0, orderTax2 = 0, orderTaxTotal = 0, orderFinalTotal = 0;
 		double itemTotalPrice = 0, itemTotalTax1 = 0, itemTotalTax2 = 0;
 		ArrayList<OrderSummary> orderSummaries = new ArrayList<OrderSummary>();
-		
-		JSONArray array = new JSONArray(orderText);
-		orderText = null;
 		
 		for (int i = 0; i < array.length(); i++) {
 			JSONObject object = array.getJSONObject(i);
@@ -157,158 +155,6 @@ public class PlaceOrderController {
 		return "Place Order/orderSummary";
 	}
 
-
-	/*
-	 * @PostMapping("/home/itemsListForPlaceOrder/add") public String
-	 * addItemsForPlaceOrder(@ModelAttribute OrderCreation orderCreation, Model
-	 * model) { ArrayList<OrderSummary> list = orderCreation.getOrderSummaryList();
-	 * double orderTotal = 0, orderTax1 = 0, orderTax2 = 0, orderTaxTotal = 0,
-	 * orderFinalTotal = 0;
-	 * 
-	 * double itemTotalPrice = 0, itemTotalTax1 = 0, itemTotalTax2 = 0;
-	 * 
-	 * for (OrderSummary orderSummary : list) { if (orderSummary.getItemQuantity()
-	 * != 0) { String itemId = orderSummary.getItemId(); Item item =
-	 * itemRepository.findByItemId(itemId);
-	 * 
-	 * orderSummary.setItemName(item.getItemName());
-	 * 
-	 * itemTotalPrice = item.getItemPrice() * orderSummary.getItemQuantity();
-	 * orderSummary.setItemTotalPrice(itemTotalPrice); orderTotal = orderTotal +
-	 * itemTotalPrice;
-	 * 
-	 * itemTotalTax1 = item.getItemTax1() * orderSummary.getItemQuantity();
-	 * orderSummary.setItemTotalTax1(itemTotalTax1); orderTax1 = orderTax1 +
-	 * itemTotalTax1;
-	 * 
-	 * itemTotalTax2 = item.getItemTax2() * orderSummary.getItemQuantity();
-	 * orderSummary.setItemTotalTax2(itemTotalTax2); orderTax2 = orderTax2 +
-	 * itemTotalTax2; } }
-	 * 
-	 * orderTaxTotal = orderTax1 + orderTax2; orderFinalTotal = orderTotal +
-	 * orderTaxTotal; Order order = new Order();
-	 * 
-	 * Calendar calendar = Calendar.getInstance(); Date now = calendar.getTime();
-	 * order.setOrderDate(now); order.setOrderTax1(DoubleRounder.round(orderTax1,
-	 * precision)); order.setOrderTax2(DoubleRounder.round(orderTax2, precision));
-	 * order.setOrderTaxTotal(DoubleRounder.round(orderTaxTotal, precision));
-	 * order.setOrderTotal(DoubleRounder.round(orderTotal, precision));
-	 * order.setOrderFinalTotal(DoubleRounder.round(orderFinalTotal, precision));
-	 * 
-	 * orderRepository.save(order); String orderId = order.getOrderId();
-	 * 
-	 * for (OrderSummary orderSummary : list) { if (orderSummary.getItemQuantity()
-	 * != 0) { orderSummary.setOrderId(orderId);
-	 * orderSummaryRepository.save(orderSummary); } }
-	 * 
-	 * ArrayList<OrderSummary> orderSummaryList =
-	 * orderSummaryRepository.findAllByOrderId(orderId);
-	 * 
-	 * model.addAttribute("orderSummaryList", orderSummaryList);
-	 * model.addAttribute("order", order);
-	 * 
-	 * return "Place Order/orderSummary"; }
-	 */
-	/*@GetMapping("/home/itemsListForPlaceOrder/orderSummary")
-	public String orderSummaryDisplay(Model model) {
-		// model.addAttribute("user", new User());
-		return "Place Order/orderSummary";
-	}
-
-	@GetMapping("/home/itemsListForPlaceOrder/orderSummary/delete/{id}")
-	public String orderSummaryDelete(@PathVariable("id") String id, Model model) {
-
-		OrderSummary orderSummary = orderSummaryRepository.findByOrderSummaryId(id);
-		String orderId = orderSummary.getOrderId();
-
-		Order order = orderRepository.findByOrderId(orderId);
-
-		Calendar calendar = Calendar.getInstance();
-		Date now = calendar.getTime();
-		order.setOrderDate(now);
-		order.setOrderTax1(DoubleRounder.round(order.getOrderTax1() - orderSummary.getItemTotalTax1(), precision));
-		order.setOrderTax2(DoubleRounder.round(order.getOrderTax2() - orderSummary.getItemTotalTax2(), precision));
-		order.setOrderTaxTotal(DoubleRounder.round(
-				order.getOrderTaxTotal() - (orderSummary.getItemTotalTax1() + orderSummary.getItemTotalTax2()),
-				precision));
-		order.setOrderTotal(DoubleRounder.round(order.getOrderTotal() - orderSummary.getItemTotalPrice(), precision));
-		order.setOrderFinalTotal(DoubleRounder.round(order.getOrderFinalTotal() - (orderSummary.getItemTotalTax1()
-				+ orderSummary.getItemTotalTax2() + orderSummary.getItemTotalPrice()), precision));
-
-		orderRepository.save(order);
-		orderSummaryRepository.deleteById(id);
-
-		ArrayList<OrderSummary> orderSummaryList = orderSummaryRepository.findAllByOrderId(orderId);
-
-		model.addAttribute("orderSummaryList", orderSummaryList);
-		model.addAttribute("order", order);
-		return "Place Order/orderSummary";
-	}
-
-	@GetMapping("/home/itemsListForPlaceOrder/orderSummary/edit/{id}")
-	public String showUpdateOrderForm(@PathVariable("id") String id, Model model) {
-		OrderSummary orderSummary = orderSummaryRepository.findByOrderSummaryId(id);
-		model.addAttribute("orderSummary", orderSummary);
-		return "Place Order/updateOrderSummary";
-	}
-
-	@PostMapping("/home/itemsListForPlaceOrder/orderSummary/update/{id}")
-	public String updateOrder(@PathVariable("id") String id, @ModelAttribute OrderSummary orderSummary,
-			BindingResult result, Model model) {
-
-		OrderSummary orderSummaryOld = orderSummaryRepository.findByOrderSummaryId(id);
-
-		String orderId = orderSummaryOld.getOrderId();
-
-		Order order = orderRepository.findByOrderId(orderId);
-		orderSummary.setOrderSummaryId(id);
-		orderSummary.setOrderId(orderId);
-
-		double itemTotalPrice = 0, itemTotalTax1 = 0, itemTotalTax2 = 0;
-
-		Item item = itemRepository.findByItemName(orderSummary.getItemName());
-
-		orderSummary.setItemId(item.getItemId());
-		itemTotalPrice = item.getItemPrice() * orderSummary.getItemQuantity();
-		orderSummary.setItemTotalPrice(itemTotalPrice);
-
-		itemTotalTax1 = item.getItemTax1() * orderSummary.getItemQuantity();
-		orderSummary.setItemTotalTax1(itemTotalTax1);
-
-		itemTotalTax2 = item.getItemTax2() * orderSummary.getItemQuantity();
-		orderSummary.setItemTotalTax2(itemTotalTax2);
-
-		Calendar calendar = Calendar.getInstance();
-		Date now = calendar.getTime();
-
-		order.setOrderDate(now);
-		order.setOrderTax1(DoubleRounder
-				.round(order.getOrderTax1() - orderSummaryOld.getItemTotalTax1() + itemTotalTax1, precision));
-		order.setOrderTax2(DoubleRounder
-				.round(order.getOrderTax2() - orderSummaryOld.getItemTotalTax2() + itemTotalTax2, precision));
-		order.setOrderTaxTotal(DoubleRounder.round(
-				order.getOrderTaxTotal() - (orderSummaryOld.getItemTotalTax1() + orderSummaryOld.getItemTotalTax2())
-						+ (orderSummary.getItemTotalTax1() + orderSummary.getItemTotalTax2()),
-				precision));
-		order.setOrderTotal(DoubleRounder
-				.round(order.getOrderTotal() - orderSummaryOld.getItemTotalPrice() + itemTotalPrice, precision));
-		order.setOrderFinalTotal(DoubleRounder.round(order.getOrderFinalTotal()
-				- (orderSummaryOld.getItemTotalTax1() + orderSummaryOld.getItemTotalTax2()
-						+ orderSummaryOld.getItemTotalPrice())
-				+ (orderSummary.getItemTotalTax1() + orderSummary.getItemTotalTax2()
-						+ orderSummary.getItemTotalPrice()),
-				precision));
-
-		orderRepository.save(order);
-		orderSummaryRepository.save(orderSummary);
-
-		ArrayList<OrderSummary> orderSummaryList = orderSummaryRepository.findAllByOrderId(orderId);
-
-		model.addAttribute("orderSummaryList", orderSummaryList);
-		model.addAttribute("order", order);
-
-		return "Place Order/orderSummary";
-	}*/
 
 	@GetMapping("/home/itemsListForPlaceOrder/orderSummary/customerSelection/{id}")
 	public String customerSelectionDisplay(@PathVariable("id") String orderId, Model model) {
@@ -376,7 +222,6 @@ public class PlaceOrderController {
 		Order order = orderRepository.findByOrderId(orderId);
 		ArrayList<OrderSummary> orderSummaryList = orderSummaryRepository.findAllByOrderId(order.getOrderId());
 		Customer customer = customerRepository.findByCustomerCode(order.getOrderCustomerCode());
-
 		InvoicePDFExporter exporter = new InvoicePDFExporter(order, orderSummaryList, customer);
 		exporter.export(response);
 

@@ -30,6 +30,14 @@ public class UserController {
 	@PostMapping("/home/registerUser")
 	public String registerUser(@ModelAttribute User user, Model model) {
 
+		user.setUserName(user.getUserName().toLowerCase());
+		
+		if(userRepository.findByUserName(user.getUserName()) != null) {
+			model.addAttribute("user", new User());
+			model.addAttribute("message", "User already exist.");
+			return "User/userRegistration";
+		}
+		
 		Calendar calendar = Calendar.getInstance();
 		Date now = calendar.getTime();
 		//user.setCustomerCreatedDate(now);
@@ -67,30 +75,20 @@ public class UserController {
 	@PostMapping("/home/viewUser/updateUser/{id}")
 	public String updateUser(@PathVariable("id") String id, @ModelAttribute User user, BindingResult result,
 								 Model model) {
+		
+		user.setUserName(user.getUserName().toLowerCase());
+    	String name = userRepository.findByUserId(id).getUserName();
+		
+		if(!user.getUserName().equals(name) && (userRepository.findByUserName(user.getUserName()) != null)) {    		    		    			
+    		return "redirect:/home/viewUser/userEdit/"+id;    	
+    	}
+		
 		user.setUserId(id);
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
 		user.setActive(1);
-//		Calendar calendar = Calendar.getInstance();
-//		Date now = calendar.getTime();
-//		customer.setCustomerCreatedDate(now);
 		userRepository.save(user);
 		model.addAttribute("users", userRepository.findAll());
 		return "redirect:/home/viewUser";
 	}
-
-//	@PostMapping("/login")
-//	public String greetingSubmit(@ModelAttribute User user, Model model) {
-//
-//		User userNew = userRepository.findByUserNameAndUserPasswordAndUserRole(user.getUserName(), user.getUserPassword(), user.getUserRole());
-//
-//		if(userNew !=  null) {
-//			return "home";
-//		}
-//		else {
-//			model.addAttribute("errorMessage", "Invalid Username or Password");
-//			return "login";
-//		}
-//	}
-	
 }
