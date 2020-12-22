@@ -30,9 +30,9 @@
 						<th>Item Category</th>
 						<th>Item Price</th>
 						<th>Item Taxable</th>
-						<th>Item Tax1</th>
+						<!-- <th>Item Tax1</th>
 						<th>Item Tax2</th>
-						<th>Item TaxTotal</th>
+						<th>Item TaxTotal</th> -->
 						<th>Create/Update</th>
 						<th>Edit</th>
 						<th>Delete</th>
@@ -44,9 +44,9 @@
 						<td th:text="${item.itemCategory}"></td>
 						<td th:text="${item.itemPrice}"></td>
 						<td th:text="${item.itemIsTaxable}"></td>
-						<td th:text="${item.itemTax1}"></td>
+						<!-- <td th:text="${item.itemTax1}"></td>
 						<td th:text="${item.itemTax2}"></td>
-						<td th:text="${item.itemTaxTotal}"></td>
+						<td th:text="${item.itemTaxTotal}"></td> -->
 						<td th:text="${item.itemCreateOrUpdateDate}"></td>
 						<td><a th:href="@{/home/viewItems/edit/{id}(id=${item.itemId})}">Edit</a></td>
 						<td><a th:href="@{/home/viewItems/delete/{id}(id=${item.itemId})}">Delete</a></td>
@@ -54,9 +54,10 @@
 				</tbody>
 			</table>
 		</div>
+		<br>
+		<a href="/home/viewItems/addItem" class="btn btn-primary" type="button">Add New Item</a>
+	<a href="/home" class="btn btn-secondary" type="button">Home</a>
 	</div>
-	<a href="/home/viewItems/addItem" class="btn btn-info" type="button">Add New Item</a>
-	<a href="/home" class="btn btn-success" type="button">Home</a>
 
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.bundle.min.js"></script>

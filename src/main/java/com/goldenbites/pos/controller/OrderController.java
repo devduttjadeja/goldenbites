@@ -44,25 +44,21 @@ public class OrderController {
 		@GetMapping("/home/viewOrders/datefilter")
 		public String invoiceDisplayForOneOrder(@RequestParam("startdate") String startdate,@RequestParam("enddate") String enddate, Model model) {
 	
-//			if(startdate.equals(enddate)) {
-//				String[] startdates = startdate.split("-");
-//				Date OrderDateStart = new Date(Integer.parseInt(startdates[2])-1900,Integer.parseInt(startdates[1])-1,Integer.parseInt(startdates[0]));
-//				List<Order> orders = orderRepository.findAllByOrderDate(OrderDateStart);
-//				model.addAttribute("orders", orders);
-//				return "Order/viewOrders";
-//			}
-//			
+			if(startdate.equals(enddate)) {
+				String[] startdates = startdate.split("-");
+				Date OrderDateStart = new Date(Integer.parseInt(startdates[2])-1900,Integer.parseInt(startdates[1])-1,Integer.parseInt(startdates[0]));
+				Date OrderDateEnd = new Date(Integer.parseInt(startdates[2])-1900,Integer.parseInt(startdates[1])-1,Integer.parseInt(startdates[0])+1);
+				model.addAttribute("orders", orderRepository.findAllByOrderDateBetween(OrderDateStart, OrderDateEnd));
+				return "Order/viewFilteredOrders";
+			}
 			
 			String[] startdates = startdate.split("-");
 			String[] enddates = enddate.split("-");
 			
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			String currentPrincipalName = authentication.getName();
-			
-			Date OrderDateStart = new Date(Integer.parseInt(startdates[2])-1900,Integer.parseInt(startdates[1])-1,Integer.parseInt(startdates[0])+1);
+			Date OrderDateStart = new Date(Integer.parseInt(startdates[2])-1900,Integer.parseInt(startdates[1])-1,Integer.parseInt(startdates[0]));
 			Date OrderDateEnd = new Date(Integer.parseInt(enddates[2])-1900,Integer.parseInt(enddates[1])-1,Integer.parseInt(enddates[0])+1);
 			
 			model.addAttribute("orders", orderRepository.findAllByOrderDateBetween(OrderDateStart, OrderDateEnd));
-			return "Order/viewOrders";
+			return "Order/viewFilteredOrders";
 		}
 }

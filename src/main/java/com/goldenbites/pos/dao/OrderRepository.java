@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 import com.goldenbites.pos.model.Order;
 
@@ -15,7 +16,5 @@ public interface OrderRepository extends MongoRepository<Order, String> {
 
 	List<Order> findAllByOrderDateBetween(Date OrderDateStart, Date OrderDateEnd);
 
-	List<Order> findByOrderCustomerCode(String customerCode);
-
-	List<Order> findAllByOrderDate(Date orderDateStart);
+	List<Order> findAllByOrderDate(Date OrderDateStart);
 }

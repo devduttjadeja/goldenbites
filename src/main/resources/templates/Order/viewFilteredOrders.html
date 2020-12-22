@@ -24,36 +24,8 @@
 	</center>
   <form th:action="@{/home/viewOrders/datefilter}">
 	<div class="col-md-4 mt-5">
-		<label for="date">Start Date:</label>
-		<div class="input-group date" id="datetimepicker1"
-			data-target-input="nearest">
-			<input type="text" class="form-control datetimepicker-input"
-				data-target="#datetimepicker1" id="startdate" placeholder="Start Date" autocomplete="off" name = "startdate" required/>
-			
-			<div class="input-group-append" data-target="#datetimepicker1"
-				data-toggle="datetimepicker">
-				<div class="input-group-text">
-					<i class="fa fa-calendar-alt"></i>
-				</div>
-			</div>
-		</div>
-		
-		<label for="date">End Date:</label>
-		<div class="input-group date" id="datetimepicker2"
-			data-target-input="nearest">
-			<input type="text" class="form-control datetimepicker-input"
-				data-target="#datetimepicker2" id="enddate" placeholder="End Date" autocomplete="off" name = "enddate" required/>
-			<div class="input-group-append" data-target="#datetimepicker2"
-				data-toggle="datetimepicker">
-				<div class="input-group-text">
-					<i class="fa fa-calendar-alt"></i>
-				</div>
-			</div>
-		</div>
 		
 	 <br></br>	
-	<input type="submit" class="btn btn-primary" value="Filter">
-    <a href="/home" class="btn btn-secondary" type="button">Back</a>
 	</div>
     </form>
     
