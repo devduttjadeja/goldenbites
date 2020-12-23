@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.goldenbites.pos.dao.CustomerRepository;
+import com.goldenbites.pos.dao.OrderRepository;
 import com.goldenbites.pos.dao.UserRepository;
 import com.goldenbites.pos.model.Customer;
 import com.goldenbites.pos.model.User;

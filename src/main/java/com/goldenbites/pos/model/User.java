@@ -16,6 +16,17 @@ public class User {
 	@Field(name = "user_password")
 	private String userPassword;
 
+	@Field(name = "user_email")
+	private String userEmail;
+	
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
 	@Field(name = "user_role")
 	private String userRole;
 

@@ -30,9 +30,11 @@ public class UserController {
 	@PostMapping("/home/registerUser")
 	public String registerUser(@ModelAttribute User user, Model model) {
 
-		user.setUserName(user.getUserName().toLowerCase());
+//		user.setUserName(user.getUserName().toLowerCase());
+		user.setUserEmail(user.getUserEmail().toLowerCase());
 		
-		if(userRepository.findByUserName(user.getUserName()) != null) {
+		if((userRepository.findByUserName(user.getUserName()) != null) || 
+				(userRepository.findByUserEmail(user.getUserEmail()) != null)) {
 			model.addAttribute("user", new User());
 			model.addAttribute("message", "User already exist.");
 			return "User/userRegistration";
@@ -76,10 +78,15 @@ public class UserController {
 	public String updateUser(@PathVariable("id") String id, @ModelAttribute User user, BindingResult result,
 								 Model model) {
 		
-		user.setUserName(user.getUserName().toLowerCase());
-    	String name = userRepository.findByUserId(id).getUserName();
+//		user.setUserName(user.getUserName().toLowerCase());
+		user.setUserEmail(user.getUserEmail().toLowerCase());
 		
-		if(!user.getUserName().equals(name) && (userRepository.findByUserName(user.getUserName()) != null)) {    		    		    			
+    	String name = userRepository.findByUserId(id).getUserName();
+    	String email = userRepository.findByUserId(id).getUserEmail();
+		
+		if((!user.getUserName().equals(name) && (userRepository.findByUserName(user.getUserName()) != null)) ||
+				(!user.getUserEmail().equals(email) && (userRepository.findByUserEmail(user.getUserEmail()) != null))) { 
+			
     		return "redirect:/home/viewUser/userEdit/"+id;    	
     	}
 		
