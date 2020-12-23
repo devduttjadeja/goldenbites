@@ -429,8 +429,7 @@
 	    // Get form input from UI Controller
 	    const input = UICtrl.getItemInput();
 	    // Check for name and calorie input
-	    if(input.name !== "default" && input.quantity !== "0"){
-	    	
+	    if(input.name !== "default" && input.quantity !== ''){
 	    	if(ItemCtrl.checkDuplicate(input.name) !== "true"){
 	    		
 	    		// Add item

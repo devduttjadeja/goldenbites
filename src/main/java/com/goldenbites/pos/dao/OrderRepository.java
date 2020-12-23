@@ -17,4 +17,7 @@ public interface OrderRepository extends MongoRepository<Order, String> {
 	List<Order> findAllByOrderDateBetween(Date OrderDateStart, Date OrderDateEnd);
 
 	List<Order> findAllByOrderDate(Date OrderDateStart);
+
+	public void deleteByOrderCustomerCode(String customerCode);
+		
 }

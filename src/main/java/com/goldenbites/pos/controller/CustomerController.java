@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.goldenbites.pos.dao.CustomerRepository;
+import com.goldenbites.pos.dao.OrderRepository;
+import com.goldenbites.pos.dao.OrderSummaryRepository;
 import com.goldenbites.pos.dao.UserRepository;
 import com.goldenbites.pos.model.Customer;
 import com.goldenbites.pos.model.User;
@@ -26,6 +28,12 @@ public class CustomerController {
 
     @Autowired
     CustomerRepository customerRepository;
+    
+    @Autowired
+    OrderRepository orderRepository;
+    
+    @Autowired
+    OrderSummaryRepository OrderSummaryRepository;
 
     @Autowired
     private JavaMailSender emailSender;
@@ -89,7 +97,10 @@ public class CustomerController {
     @GetMapping("/home/viewCustomer/customerDelete/{id}")
     public String deleteCustomer(@PathVariable("id") String id, Model model) {
     	userRepository.deleteByUserName(customerRepository.findByCustomerId(id).getCustomerEmail());
-        customerRepository.deleteById(id);
+    	orderRepository.deleteByOrderCustomerCode(customerRepository.findByCustomerId(id).getCustomerCode());
+      
+    	customerRepository.deleteById(id);
+        
         model.addAttribute("customers", customerRepository.findAll());
         return "redirect:/home/viewCustomer";
     }
@@ -108,7 +119,7 @@ public class CustomerController {
     	
     	customer.setCustomerName(customer.getCustomerName().toLowerCase());
     	customer.setCustomerEmail(customer.getCustomerEmail().toLowerCase());
-    	
+    	customer.setCustomerCode(customerRepository.findByCustomerId(id).getCustomerCode());
     	String email = customerRepository.findByCustomerId(id).getCustomerEmail();
     	
     	if(!customer.getCustomerEmail().equals(email) && (customerRepository.findByCustomerEmail(customer.getCustomerEmail()) != null)) {    		    		    			
