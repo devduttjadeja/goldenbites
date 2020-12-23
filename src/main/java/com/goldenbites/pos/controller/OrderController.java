@@ -1,11 +1,10 @@
 package com.goldenbites.pos.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.goldenbites.pos.dao.CustomerRepository;
 import com.goldenbites.pos.dao.OrderRepository;
-import com.goldenbites.pos.model.Customer;
 import com.goldenbites.pos.model.Order;
 
 @Controller
@@ -29,14 +27,16 @@ public class OrderController {
 		public String viewOrders(Model model) {
 			List<Order> orders= orderRepository.findAll();
 			
+			
+			List<Order> validOrders = new ArrayList<Order>();
 			for(int i=0; i<orders.size(); i++) {
 				Order order = orders.get(i);
-				if(order.getOrderCustomerCode() == null) {
-					orders.remove(i);
+				if(order.getOrderCustomerCode() != null) {
+					validOrders.add(order);
 				}
 			}
 			
-			model.addAttribute("orders", orders);
+			model.addAttribute("orders", validOrders);
 			return "Order/viewOrders";
 		}
 	  

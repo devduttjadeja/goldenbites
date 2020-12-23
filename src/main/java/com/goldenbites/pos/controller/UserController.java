@@ -1,18 +1,22 @@
 package com.goldenbites.pos.controller;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.goldenbites.pos.dao.UserRepository;
 import com.goldenbites.pos.model.User;
-
-import java.util.Calendar;
-import java.util.Date;
 
 @Controller
 public class UserController {
@@ -53,7 +57,16 @@ public class UserController {
 
 	@GetMapping("/home/viewUser")
 	public String viewAllUser(Model model) {
-		model.addAttribute("users", userRepository.findAll());
+		List<User> users = userRepository.findAll();
+		
+		for (int i = 0; i<users.size();i++) {
+			
+			if(users.get(i).getUserName().equals("admin")) {
+				users.remove(i);
+				break;
+			}
+		}
+		model.addAttribute("users", users);
 		return "User/viewUser";
 	}
 
