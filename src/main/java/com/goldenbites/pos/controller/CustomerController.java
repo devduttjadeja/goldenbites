@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.goldenbites.pos.dao.CustomerRepository;
 import com.goldenbites.pos.dao.OrderRepository;
-import com.goldenbites.pos.dao.OrderSummaryRepository;
 import com.goldenbites.pos.dao.UserRepository;
 import com.goldenbites.pos.model.Customer;
 import com.goldenbites.pos.model.User;
@@ -32,9 +31,6 @@ public class CustomerController {
     @Autowired
     OrderRepository orderRepository;
     
-    @Autowired
-    OrderSummaryRepository OrderSummaryRepository;
-
     @Autowired
     private JavaMailSender emailSender;
 
