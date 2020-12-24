@@ -77,21 +77,30 @@ public class DemoController {
 	@PostMapping("/forgot-password/enterOtp/{userEmail}")
 	public String submitOtp(@PathVariable("userEmail") String userEmail, @RequestParam("otp") String otp, Model model) {
 		
-		if(otpHandlerRepository.findByUserEmail(userEmail) != null) {
-			OtpHandler otpHandler = otpHandlerRepository.findByUserEmail(userEmail);
-			if(otpHandler.getOtp() == Integer.parseInt(otp)) {
-				otpHandlerRepository.deleteById(otpHandler.getOtpHandlerId());
-				model.addAttribute("userEmail", userEmail);
-				return "User/changePassword";
+		if (otp.matches("[0-9]+") && otp.length() == 6) {
+			if(otpHandlerRepository.findByUserEmail(userEmail) != null) {
+				OtpHandler otpHandler = otpHandlerRepository.findByUserEmail(userEmail);
+				if(otpHandler.getOtp() == Integer.parseInt(otp)) {
+					otpHandlerRepository.deleteById(otpHandler.getOtpHandlerId());
+					model.addAttribute("userEmail", userEmail);
+					return "User/changePassword";
+				}else {
+//					otpHandlerRepository.deleteById(otpHandler.getOtpHandlerId());
+					model.addAttribute("message", "Invalid OTP");
+					model.addAttribute("userEmail", userEmail);
+					return "User/otpForm";
+				}
 			}else {
-//				otpHandlerRepository.deleteById(otpHandler.getOtpHandlerId());
-				model.addAttribute("message", "Invalid OTP");
-				model.addAttribute("userEmail", userEmail);
-				return "User/otpForm";
+				return "redirect:/login";
 			}
 		}else {
-			return "redirect:/login";
+			model.addAttribute("message", "Invalid OTP");
+			model.addAttribute("userEmail", userEmail);
+			return "User/otpForm";
 		}
+		
+		
+		
 	}
 	
 	@PostMapping("/change-password/{userEmail}")

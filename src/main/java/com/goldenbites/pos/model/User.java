@@ -32,9 +32,10 @@ public class User {
 
 	private int active;
 
-	public User(String userName, String userPassword, String userRole) {
+	public User(String userName, String userPassword, String userEmail, String userRole) {
 		this.userName = userName;
 		this.userPassword = userPassword;
+		this.userEmail = userEmail;
 		this.userRole = userRole;
 		this.active = 1;
 	}

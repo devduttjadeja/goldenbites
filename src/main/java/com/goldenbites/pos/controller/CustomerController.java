@@ -67,7 +67,7 @@ public class CustomerController {
         sendSimpleMessage(customer.getCustomerEmail(), "Goldenbites Customer Registration", emailbody);
 
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        User user = new User(customer.getCustomerEmail(), passwordEncoder.encode("123"), "CUSTOMER");
+        User user = new User(customer.getCustomerEmail(), passwordEncoder.encode("123"), customer.getCustomerEmail(), "CUSTOMER");
         userRepository.save(user);
         
         model.addAttribute("customer", new Customer());
@@ -114,8 +114,9 @@ public class CustomerController {
                                  Model model) {
     	
     	customer.setCustomerName(customer.getCustomerName().toLowerCase());
-    	customer.setCustomerEmail(customer.getCustomerEmail().toLowerCase());
+    	
     	customer.setCustomerCode(customerRepository.findByCustomerId(id).getCustomerCode());
+    	customer.setCustomerEmail(customerRepository.findByCustomerId(id).getCustomerEmail().toLowerCase());
     	String email = customerRepository.findByCustomerId(id).getCustomerEmail();
     	
     	if(!customer.getCustomerEmail().equals(email) && (customerRepository.findByCustomerEmail(customer.getCustomerEmail()) != null)) {    		    		    			
@@ -131,7 +132,7 @@ public class CustomerController {
             sendSimpleMessage(customer.getCustomerEmail(), "Goldenbites Customer Registration", emailbody);
 
     		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            User newUser = new User(customer.getCustomerEmail(), passwordEncoder.encode("123"), "CUSTOMER");
+            User newUser = new User(customer.getCustomerEmail(), passwordEncoder.encode("123"), customer.getCustomerEmail(), "CUSTOMER");
             userRepository.save(newUser);
             userRepository.deleteByUserName(email);
     	}else {

@@ -48,7 +48,19 @@ public class OrderController {
 				String[] startdates = startdate.split("-");
 				Date OrderDateStart = new Date(Integer.parseInt(startdates[2])-1900,Integer.parseInt(startdates[1])-1,Integer.parseInt(startdates[0]));
 				Date OrderDateEnd = new Date(Integer.parseInt(startdates[2])-1900,Integer.parseInt(startdates[1])-1,Integer.parseInt(startdates[0])+1);
-				model.addAttribute("orders", orderRepository.findAllByOrderDateBetween(OrderDateStart, OrderDateEnd));
+				
+				
+				List<Order> orders= orderRepository.findAllByOrderDateBetween(OrderDateStart, OrderDateEnd);
+				
+				
+				List<Order> validOrders = new ArrayList<Order>();
+				for(int i=0; i<orders.size(); i++) {
+					Order order = orders.get(i);
+					if(order.getOrderCustomerCode() != null) {
+						validOrders.add(order);
+					}
+				}
+				model.addAttribute("orders",validOrders );
 				return "Order/viewFilteredOrders";
 			}
 			
@@ -58,7 +70,17 @@ public class OrderController {
 			Date OrderDateStart = new Date(Integer.parseInt(startdates[2])-1900,Integer.parseInt(startdates[1])-1,Integer.parseInt(startdates[0]));
 			Date OrderDateEnd = new Date(Integer.parseInt(enddates[2])-1900,Integer.parseInt(enddates[1])-1,Integer.parseInt(enddates[0])+1);
 			
-			model.addAttribute("orders", orderRepository.findAllByOrderDateBetween(OrderDateStart, OrderDateEnd));
+			List<Order> orders= orderRepository.findAllByOrderDateBetween(OrderDateStart, OrderDateEnd);
+			
+			
+			List<Order> validOrders = new ArrayList<Order>();
+			for(int i=0; i<orders.size(); i++) {
+				Order order = orders.get(i);
+				if(order.getOrderCustomerCode() != null) {
+					validOrders.add(order);
+				}
+			}
+			model.addAttribute("orders",validOrders );
 			return "Order/viewFilteredOrders";
 		}
 }

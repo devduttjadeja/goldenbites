@@ -1,5 +1,6 @@
 package com.goldenbites.pos.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -53,8 +54,8 @@ public class UserController {
 		userRepository.save(user);
 
 		//model.addAttribute("user", new User());
-		model.addAttribute("users", userRepository.findAll());
-		return "User/viewUser";
+		
+		return "redirect:/home/viewUser";
 	}
 
 	@GetMapping("/home/viewUser")
@@ -68,7 +69,16 @@ public class UserController {
 				break;
 			}
 		}
-		model.addAttribute("users", users);
+		
+		List<User> validUsers = new ArrayList<>();
+		for (int i = 0; i<users.size();i++) {
+			
+			if(!users.get(i).getUserRole().equals("CUSTOMER")) {
+				validUsers.add(users.get(i));
+			}
+		}
+		
+		model.addAttribute("users", validUsers);
 		return "User/viewUser";
 	}
 
