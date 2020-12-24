@@ -172,7 +172,7 @@ public class PlaceOrderController {
 		if (customer != null) {
 			order.setOrderCustomerCode(customerCode);
 			orderRepository.save(order);
-			return "Place Order/PaymentOptions";
+			return "Place Order/paymentOptions";
 		} else {
 			return "redirect:/home/itemsListForPlaceOrder/orderSummary/customerSelection/" + orderId;
 		}
